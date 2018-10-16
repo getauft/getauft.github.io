@@ -27,11 +27,375 @@
 <body>
     <div class="container">
         <div class="header"></div>
-        <div class="jumbotron">
-            <h1>Привет, мир!</h1>
-            <p>...</p>
-            <p><a class="btn btn-primary btn-lg" role="button">Узнать больше</a></p>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Times</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html,
+        body {
+            height: 100%;
+        }
+
+        h2 {
+            margin: 10px 0px 10px 0px;
+        }
+        #exercise{
+            width: 100%;
+            height: 80%;
+            min-height: 80%;
+            float:left;
+        }
+
+        #control {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 80px;
+        }
+        #showRuleButton {
+            width: 30%;
+            height: 100%;
+            float: left;
+        }
+        #getExerciseButton {
+            width: 70%;
+            height: 100%;
+        }
+        #rule {
+            margin-top: 20px;
+        }
+
+        hr {
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: rebeccapurple;
+        }
+        small {
+            color: darkslategrey;
+        }
+    </style>
+</head>
+<body>
+    <div id="place">
+        <div id="exercise"></div>
+        <div id="control">
+            <input id='showRuleButton' type='button' value='РџР РђР’РР›Рћ' onclick='showRulePlace();'/>
+            <input id="getExerciseButton" type="button" value="Р—РђР”РђРќРР•" onclick="getExercise();"/>
         </div>
     </div>
+    <script type="application/javascript">
+        "use strict";
+        var pronouns = [
+            {person: '1st', plural: false, subject_pronoun: 'I', object_pronoun: 'me', possessive_adjective: 'my', possessive_pronoun: 'mine', reflexive_or_intensive_pronoun: 'myself'},
+            {person: '2nd', plural: false, subject_pronoun: 'you', object_pronoun: 'you', possessive_adjective: 'your', possessive_pronoun: 'yours', reflexive_or_intensive_pronoun: 'yourself'},
+            {person: '3rd', plural: false, subject_pronoun: 'he', object_pronoun: 'him', possessive_adjective: 'his', possessive_pronoun: 'his', reflexive_or_intensive_pronoun: 'himself'},
+            {person: '3rd', plural: false, subject_pronoun: 'she', object_pronoun: 'her', possessive_adjective: 'her', possessive_pronoun: 'hers', reflexive_or_intensive_pronoun: 'herself'},
+            {person: '1st', plural: true, subject_pronoun: 'we', object_pronoun: 'us', possessive_adjective: 'our', possessive_pronoun: 'ours', reflexive_or_intensive_pronoun: 'ourselves'},
+            {person: '2nd', plural: true, subject_pronoun: 'you', object_pronoun: 'you', possessive_adjective: 'your', possessive_pronoun: 'yours', reflexive_or_intensive_pronoun: 'yourselves'},
+            {person: '3rd', plural: true, subject_pronoun: 'they', object_pronoun: 'them', possessive_adjective: 'their', possessive_pronoun: 'theirs', reflexive_or_intensive_pronoun: 'themselves'}
+        ];
+        var verbs = [
+            {base_form: 'be', simple_past: 'were', past_participle: 'been', translate: 'Р±С‹С‚СЊ'},
+            {base_form: 'have', simple_past: 'had', past_participle: 'had', translate: 'РёРјРµС‚СЊ'},
+            {base_form: 'do', simple_past: 'did', past_participle: 'done', translate: 'РґРµР»Р°С‚СЊ'},
+            {base_form: 'say', simple_past: 'said', past_participle: 'said', translate: 'РіРѕРІРѕСЂРёС‚СЊ'},
+            {base_form: 'go', simple_past: 'went', past_participle: 'gone', translate: 'РёРґС‚Рё'},
+            {base_form: 'get', simple_past: 'got', past_participle: 'got / gotten', translate: 'РїРѕР»СѓС‡Р°С‚СЊ'},
+            {base_form: 'make', simple_past: 'made', past_participle: 'made', translate: 'РґРµР»Р°С‚СЊ'},
+            {base_form: 'know', simple_past: 'knew', past_participle: 'known', translate: 'Р·РЅР°С‚СЊ'},
+            {base_form: 'think', simple_past: 'thought', past_participle: 'thought', translate: 'РґСѓРјР°С‚СЊ'},
+            {base_form: 'take', simple_past: 'took', past_participle: 'taken', translate: 'Р±СЂР°С‚СЊ'},
+            {base_form: 'see', simple_past: 'saw', past_participle: 'seen', translate: 'РІРёРґРµС‚СЊ'},
+            {base_form: 'come', simple_past: 'came', past_participle: 'come', translate: 'РїСЂРёС…РѕРґРёС‚СЊ'},
+            {base_form: 'want', simple_past: 'wanted', past_participle: 'wanted', translate: 'С…РѕС‚РµС‚СЊ'},
+            {base_form: 'use', simple_past: 'used', past_participle: 'used', translate: 'РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ'},
+            {base_form: 'find', simple_past: 'found', past_participle: 'found', translate: 'РЅР°С…РѕРґРёС‚СЊ'},
+            {base_form: 'give', simple_past: 'gave', past_participle: 'given', translate: 'РґР°РІР°С‚СЊ'},
+            {base_form: 'tell', simple_past: 'told', past_participle: 'told', translate: 'СЂР°СЃСЃРєР°Р·С‹РІР°С‚СЊ'},
+            {base_form: 'work', simple_past: 'worked', past_participle: 'worked', translate: 'СЂР°Р±РѕС‚Р°С‚СЊ'},
+            {base_form: 'call', simple_past: 'called', past_participle: 'called', translate: 'Р·РІР°С‚СЊ; Р·РІРѕРЅРёС‚СЊ'},
+            {base_form: 'try', simple_past: 'tried', past_participle: 'tried', translate: 'РїС‹С‚Р°С‚СЊСЃСЏ'},
+            {base_form: 'ask', simple_past: 'asked', past_participle: 'asked', translate: 'РїСЂРѕСЃРёС‚СЊ; СЃРїСЂР°С€РёРІР°С‚СЊ'},
+            {base_form: 'need', simple_past: 'needed', past_participle: 'needed', translate: 'РЅСѓР¶РґР°С‚СЊСЃСЏ'},
+            {base_form: 'feel', simple_past: 'felt', past_participle: 'felt', translate: 'С‡СѓРІСЃС‚РІРѕРІР°С‚СЊ'},
+            {base_form: 'become', simple_past: 'became', past_participle: 'become', translate: 'СЃС‚Р°РЅРѕРІРёС‚СЊСЃСЏ'},
+            {base_form: 'leave', simple_past: 'left', past_participle: 'left', translate: 'РѕСЃС‚Р°РІР»СЏС‚СЊ'},
+            {base_form: 'put', simple_past: 'put', past_participle: 'put', translate: 'РєР»Р°СЃС‚СЊ; СЃС‚Р°РІРёС‚СЊ'},
+            {base_form: 'mean', simple_past: 'meant', past_participle: 'meant', translate: 'Р·РЅР°С‡РёС‚СЊ'},
+            {base_form: 'keep', simple_past: 'kept', past_participle: 'kept', translate: 'С…СЂР°РЅРёС‚СЊ'},
+            {base_form: 'let', simple_past: 'let', past_participle: 'let', translate: 'РїРѕР·РІРѕР»СЏС‚СЊ'},
+            {base_form: 'begin', simple_past: 'began', past_participle: 'begun', translate: 'РЅР°С‡РёРЅР°С‚СЊ'},
+            {base_form: 'seem', simple_past: 'seemed', past_participle: 'seemed', translate: 'РєР°Р·Р°С‚СЊСЃСЏ'},
+            {base_form: 'help', simple_past: 'helped', past_participle: 'helped', translate: 'РїРѕРјРѕРіР°С‚СЊ'},
+            {base_form: 'show', simple_past: 'showed', past_participle: 'shown', translate: 'РїРѕРєР°Р·С‹РІР°С‚СЊ'},
+            {base_form: 'hear', simple_past: 'heard', past_participle: 'heard', translate: 'СЃР»С‹С€Р°С‚СЊ'},
+            {base_form: 'play', simple_past: 'played', past_participle: 'played', translate: 'РёРіСЂР°С‚СЊ'},
+            {base_form: 'run', simple_past: 'ran', past_participle: 'run', translate: 'Р±РµР¶Р°С‚СЊ'},
+            {base_form: 'move', simple_past: 'moved', past_participle: 'moved', translate: 'РґРІРёРіР°С‚СЊСЃСЏ'},
+            {base_form: 'live', simple_past: 'lived', past_participle: 'lived', translate: 'Р¶РёС‚СЊ'},
+            {base_form: 'believe', simple_past: 'believed', past_participle: 'believed', translate: 'РІРµСЂРёС‚СЊ'},
+            {base_form: 'bring', simple_past: 'brought', past_participle: 'brought', translate: 'РїСЂРёРЅРѕСЃРёС‚СЊ'},
+            {base_form: 'happen', simple_past: 'happened', past_participle: 'happened', translate: 'СЃР»СѓС‡Р°С‚СЊСЃСЏ'},
+            {base_form: 'write', simple_past: 'wrote', past_participle: 'written', translate: 'РїРёСЃР°С‚СЊ'},
+            {base_form: 'sit', simple_past: 'sat', past_participle: 'sat', translate: 'СЃРёРґРµС‚СЊ'},
+            {base_form: 'stand', simple_past: 'stood', past_participle: 'stood', translate: 'СЃС‚РѕСЏС‚СЊ'},
+            {base_form: 'lose', simple_past: 'lost', past_participle: 'lost', translate: 'С‚РµСЂСЏС‚СЊ'},
+            {base_form: 'pay', simple_past: 'paid', past_participle: 'paid', translate: 'РїР»Р°С‚РёС‚СЊ'},
+            {base_form: 'meet', simple_past: 'met', past_participle: 'met', translate: 'РІСЃС‚СЂРµС‡Р°С‚СЊ'},
+            {base_form: 'include', simple_past: 'included', past_participle: 'included', translate: 'РІРєР»СЋС‡Р°С‚СЊ'},
+            {base_form: 'continue', simple_past: 'continued', past_participle: 'continued', translate: 'РїСЂРѕРґРѕР»Р¶Р°С‚СЊ'},
+            {base_form: 'set', simple_past: 'set', past_participle: 'set', translate: 'СѓСЃС‚Р°РЅР°РІР»РёРІР°С‚СЊ'},
+            {base_form: 'learn', simple_past: 'learnt / learned', past_participle: 'learnt / learned', translate: 'СѓС‡РёС‚СЊ'},
+            {base_form: 'change', simple_past: 'changed', past_participle: 'changed', translate: 'РјРµРЅСЏС‚СЊ'},
+            {base_form: 'lead', simple_past: 'led', past_participle: 'led', translate: 'РІРµСЃС‚Рё'},
+            {base_form: 'understand', simple_past: 'understood', past_participle: 'understood', translate: 'РїРѕРЅРёРјР°С‚СЊ'},
+            {base_form: 'watch', simple_past: 'watched', past_participle: 'watched', translate: 'СЃРјРѕС‚СЂРµС‚СЊ / РЅР°Р±Р»СЋРґР°С‚СЊ'},
+            {base_form: 'follow', simple_past: 'followed', past_participle: 'followed', translate: 'СЃР»РµРґРѕРІР°С‚СЊ'},
+            {base_form: 'stop', simple_past: 'stopped', past_participle: 'stopped', translate: 'РѕСЃС‚Р°РЅР°РІР»РёРІР°С‚СЊ'},
+            {base_form: 'create', simple_past: 'created', past_participle: 'created', translate: 'СЃРѕР·РґР°РІР°С‚СЊ'},
+            {base_form: 'speak', simple_past: 'spoke', past_participle: 'spoken', translate: 'РіРѕРІРѕСЂРёС‚СЊ'},
+            {base_form: 'read', simple_past: 'read', past_participle: 'read', translate: 'С‡РёС‚Р°С‚СЊ'},
+            {base_form: 'spend', simple_past: 'spent', past_participle: 'spent', translate: 'С‚СЂР°С‚РёС‚СЊ'},
+            {base_form: 'grow', simple_past: 'grew', past_participle: 'grown', translate: 'СЂР°СЃС‚Рё'},
+            {base_form: 'open', simple_past: 'opened', past_participle: 'opened', translate: 'РѕС‚РєСЂС‹РІР°С‚СЊ'},
+            {base_form: 'walk', simple_past: 'walked', past_participle: 'walked', translate: 'РёРґС‚Рё'},
+            {base_form: 'win', simple_past: 'won', past_participle: 'won', translate: 'РїРѕР±РµР¶РґР°С‚СЊ'},
+            {base_form: 'teach', simple_past: 'taught', past_participle: 'taught', translate: 'СѓС‡РёС‚СЊ'},
+            {base_form: 'offer', simple_past: 'offered', past_participle: 'offered', translate: 'РїСЂРµРґР»Р°РіР°С‚СЊ'},
+            {base_form: 'remember', simple_past: 'remembered', past_participle: 'remembered', translate: 'РїРѕРјРЅРёС‚СЊ'},
+            {base_form: 'consider', simple_past: 'considered', past_participle: 'considered', translate: 'СЃС‡РёС‚Р°С‚СЊ'},
+            {base_form: 'appear', simple_past: 'appeared', past_participle: 'appeared', translate: 'РїРѕСЏРІР»СЏС‚СЊСЃСЏ'},
+            {base_form: 'buy', simple_past: 'bought', past_participle: 'bought', translate: 'РїРѕРєСѓРїР°С‚СЊ'},
+            {base_form: 'serve', simple_past: 'served', past_participle: 'served', translate: 'СЃР»СѓР¶РёС‚СЊ'},
+            {base_form: 'die', simple_past: 'died', past_participle: 'died', translate: 'СѓРјРёСЂР°С‚СЊ'},
+            {base_form: 'send', simple_past: 'sent', past_participle: 'sent', translate: 'РїРѕСЃС‹Р»Р°С‚СЊ'},
+            {base_form: 'build', simple_past: 'built', past_participle: 'built', translate: 'СЃС‚СЂРѕРёС‚СЊ'},
+            {base_form: 'stay', simple_past: 'stayed', past_participle: 'stayed', translate: 'РѕСЃС‚Р°РІР°С‚СЊСЃСЏ'},
+            {base_form: 'fall', simple_past: 'fell', past_participle: 'fallen', translate: 'РїР°РґР°С‚СЊ'},
+            {base_form: 'cut', simple_past: 'cut', past_participle: 'cut', translate: 'СЂРµР·Р°С‚СЊ'},
+            {base_form: 'reach', simple_past: 'reached', past_participle: 'reached', translate: 'РґРѕСЃС‚РёРіР°С‚СЊ'},
+            {base_form: 'kill', simple_past: 'killed', past_participle: 'killed', translate: 'СѓР±РёРІР°С‚СЊ'},
+            {base_form: 'raise', simple_past: 'raised', past_participle: 'raised', translate: 'РїРѕРґРЅРёРјР°С‚СЊ'},
+            {base_form: 'pass', simple_past: 'passed', past_participle: 'passed', translate: 'РјРёРЅРѕРІР°С‚СЊ'},
+            {base_form: 'sell', simple_past: 'sold', past_participle: 'sold', translate: 'РїСЂРѕРґР°РІР°С‚СЊ'},
+            {base_form: 'decide', simple_past: 'decided', past_participle: 'decided', translate: 'СЂРµС€Р°С‚СЊ'},
+            {base_form: 'return', simple_past: 'returned', past_participle: 'returned', translate: 'РІРѕР·РІСЂР°С‰Р°С‚СЊСЃСЏ'},
+            {base_form: 'explain', simple_past: 'explained', past_participle: 'explained', translate: 'РѕР±СЉСЏСЃРЅСЏС‚СЊ'},
+            {base_form: 'hope', simple_past: 'hoped', past_participle: 'hoped', translate: 'РЅР°РґРµСЏС‚СЊСЃСЏ'},
+            {base_form: 'develop', simple_past: 'developed', past_participle: 'developed', translate: 'СЂР°Р·РІРёРІР°С‚СЊ'},
+            {base_form: 'carry', simple_past: 'carried', past_participle: 'carried', translate: 'РІРµР·С‚Рё / РЅРµСЃС‚Рё'},
+            {base_form: 'break ', simple_past: 'broke', past_participle: 'broken', translate: 'Р»РѕРјР°С‚СЊ'},
+            {base_form: 'receive', simple_past: 'received', past_participle: 'received', translate: 'РїРѕР»СѓС‡Р°С‚СЊ'},
+            {base_form: 'agree', simple_past: 'agreed', past_participle: 'agreed', translate: 'СЃРѕРіР»Р°С€Р°С‚СЊСЃСЏ'},
+            {base_form: 'support', simple_past: 'supported', past_participle: 'supported', translate: 'РїРѕРґРґРµСЂР¶РёРІР°С‚СЊ'},
+            {base_form: 'hit', simple_past: 'hit', past_participle: 'hit', translate: 'СѓРґР°СЂСЏС‚СЊ'},
+            {base_form: 'produce', simple_past: 'produced', past_participle: 'produced', translate: 'РїСЂРѕРёР·РІРѕРґРёС‚СЊ'},
+            {base_form: 'eat', simple_past: 'ate', past_participle: 'eaten', translate: 'РµСЃС‚СЊ'},
+            {base_form: 'cover', simple_past: 'covered', past_participle: 'covered', translate: 'РїРѕРєСЂС‹РІР°С‚СЊ'},
+            {base_form: 'catch', simple_past: 'caught', past_participle: 'caught', translate: 'Р»РѕРІРёС‚СЊ'},
+            {base_form: 'draw', simple_past: 'drew', past_participle: 'drawn', translate: 'СЂРёСЃРѕРІР°С‚СЊ'},
+            {base_form: 'choose', simple_past: 'chose', past_participle: 'chosen', translate: 'РІС‹Р±РёСЂР°С‚СЊ'}
+        ];
+        var parameters = [
+            {pronoun: 'everybody', translate: 'РІСЃРµ / РІСЃСЏРєРёР№ / РєР°Р¶РґС‹Р№', scope_of_use: 'people'},
+            {pronoun: 'somebody', translate: 'РєС‚Рѕ-С‚Рѕ / РєРѕРµ-РєС‚Рѕ / РєС‚Рѕ-РЅРёР±СѓРґСЊ', scope_of_use: 'people'},
+            {pronoun: 'nobody', translate: 'РЅРёРєС‚Рѕ', scope_of_use: 'people'},
+            {pronoun: 'everything', translate: 'РІСЃРµ / РІСЃСЏРєРёР№ / РєР°Р¶РґС‹Р№', scope_of_use: 'things'},
+            {pronoun: 'something', translate: 'С‡С‚Рѕ-С‚Рѕ / РєРѕРµ-С‡С‚Рѕ / С‡С‚Рѕ-РЅРёР±СѓРґСЊ', scope_of_use: 'things'},
+            {pronoun: 'nothing', translate: 'РЅРёС‡РµРіРѕ', scope_of_use: 'things'},
+            {pronoun: 'everywhere', translate: 'РІРµР·РґРµ / РІСЃСЋРґСѓ', scope_of_use: 'place'},
+            {pronoun: 'somewhere', translate: 'РіРґРµ-С‚Рѕ / РєСѓРґР°-С‚Рѕ / РіРґРµ-РЅРёР±СѓРґСЊ', scope_of_use: 'place'},
+            {pronoun: 'nowhere', translate: 'РЅРёРіРґРµ / РЅРёРєСѓРґР°', scope_of_use: 'place'},
+            {pronoun: 'always', translate: 'РІСЃРµРіРґР°', scope_of_use: 'time'},
+            {pronoun: 'sometimes', translate: 'РёРЅРѕРіРґР°', scope_of_use: 'time'},
+            {pronoun: 'never', translate: 'РЅРёРєРѕРіРґР°', scope_of_use: 'time'},
+
+        ];
+        var interrogative = [
+            {word: 'what', translate: 'С‡С‚Рѕ / РєР°РєРѕР№'},
+            {word: 'who', translate: 'РєС‚Рѕ'},
+            {word: 'where', translate: 'РіРґРµ / РєСѓРґР°'},
+            {word: 'when', translate: 'РєРѕРіРґР°'},
+            {word: 'why', translate: 'РїРѕС‡РµРјСѓ / Р·Р°С‡РµРј'},
+            {word: 'how', translate: 'РєР°Рє'}
+        ];
+        var prepositions = [
+            {pretext: 'to', translate: 'РІ / Рє / РґРѕ (РїСЂРёР±Р»РёР¶РµРЅРёРµ)'},
+            {pretext: 'in', translate: 'РІ (РІРЅСѓС‚СЂРё)'},
+            {pretext: 'from', translate: 'РѕС‚ / РёР· (СѓРґР°Р»РµРЅРёРµ)'},
+            {pretext: 'over', translate: 'РЅР°Рґ'},
+            {pretext: 'on', translate: 'РЅР°'},
+            {pretext: 'under', translate: 'РїРѕРґ'},
+            {pretext: 'between', translate: 'РјРµР¶РґСѓ'},
+            {pretext: 'with', translate: 'СЃ'},
+            {pretext: 'without', translate: 'Р±РµР·'},
+            {pretext: 'for', translate: 'РґР»СЏ'},
+            {pretext: 'about', translate: 'Рѕ / РѕРєРѕР»Рѕ'},
+            {pretext: 'at', translate: 'РІ (РЅР°С…РѕР¶РґРµРЅРёРµ РІ РѕРєСЂСѓР¶РµРЅРёРё РёР»Рё РѕР±СЃС‚Р°РЅРѕРІРєРµ'}
+        ];
+        var  times = {
+            future: {
+                question: {
+                    about: 'РІРѕРїСЂРѕСЃ<br><small>Р±СѓРґСѓС‰РµРµ РІСЂРµРјСЏ</small>',
+                    rule: 'will [I, you, we, they he, she] {verd}?'
+                },
+                statement: {
+                    about: 'СѓС‚РІРµСЂР¶РґРµРЅРёРµ<br><small>Р±СѓРґСѓС‰РµРµ РІСЂРµРјСЏ</small>',
+                    rule: '[I, you, we, they he, she] will {verd}'
+                },
+                negation: {
+                    about: 'РѕС‚СЂРёС†Р°РЅРёРµ<br><small>Р±СѓРґСѓС‰РµРµ РІСЂРµРјСЏ</small>',
+                    rule: '[I, you, we, they he, she] will not {verd}'
+                }
+            },
+            present: {
+                question: {
+                    about: 'РІРѕРїСЂРѕСЃ<br><small>РЅР°СЃС‚РѕСЏС‰РµРµ РІСЂРµРјСЏ</small>',
+                    rule: 'do [I, you, we, they] {verb}? </br> does [he, she] {verb}?'
+                },
+                statement: {
+                    about: 'СѓС‚РІРµСЂР¶РґРµРЅРёРµ<br><small>РЅР°СЃС‚РѕСЏС‰РµРµ РІСЂРµРјСЏ</small>',
+                    rule: '[I, you, we, they] {verb}? </br> [he, she] {verb}-s?'
+                },
+                negation: {
+                    about: 'РѕС‚СЂРёС†Р°РЅРёРµ<br><small>РЅР°СЃС‚РѕСЏС‰РµРµ РІСЂРµРјСЏ</small>',
+                    rule: '[I, you, we, they] do not {verb}? </br> [he, she] does not {verb}?'
+                }
+            },
+            past: {
+                question: {
+                    about: 'РІРѕРїСЂРѕСЃ<br><small>РїСЂРѕС€РµРґС€РµРµ РІСЂРµРјСЏ</small>',
+                    rule: 'did [I, you, we, they he, she] {verd}?'
+                },
+                statement: {
+                    about: 'СѓС‚РІРµСЂР¶РґРµРЅРёРµ<br><small>РїСЂРѕС€РµРґС€РµРµ РІСЂРµРјСЏ</small>',
+                    rule: '[I, you, we, they he, she] {verd}-d / {verb simplepast form}'
+                },
+                negation: {
+                    about: 'РѕС‚СЂРёС†Р°РЅРёРµ<br><small>РїСЂРѕС€РµРґС€РµРµ РІСЂРµРјСЏ</small>',
+                    rule: '[I, you, we, they he, she] did not {verd}'
+                }
+            }
+        };
+        var showRule = false;
+        function getRandomInRange(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        function showRulePlace() {
+            var rule_place = document.getElementById("rule");
+            rule_place.style.visibility = "visible";
+        }
+        function getExercise() {
+            var time_item;
+            var verb_item = verbs[getRandomInRange(0,verbs.length-1)];
+            var pronoun_item = pronouns[getRandomInRange(0,pronouns.length-1)];
+            var second_pronoun_item = pronouns[getRandomInRange(0,pronouns.length-1)];
+            var interrogative_item = interrogative[getRandomInRange(0,interrogative.length-1)];
+            var parameter_item = parameters[getRandomInRange(0,parameters.length-1)];
+            var prepositions_item = prepositions[getRandomInRange(0,prepositions.length-1)];
+            var isQuestion = false;
+            switch (getRandomInRange(0,2)) {
+                case 0: {
+                    switch (getRandomInRange(0,2)) {
+                        case 0: {
+                            time_item = times.future.question;
+                            isQuestion = true;
+                        }
+                            break;
+                        case 1: {
+                            time_item = times.future.statement;
+                        }
+                            break;
+                        case 2: {
+                            time_item = times.future.negation;
+                        }
+                            break;
+                    }
+                }
+                    break;
+                case 1: {
+                    switch (getRandomInRange(0,2)) {
+                        case 0: {
+                            time_item = times.present.question;
+                            isQuestion = true;
+                        }
+                            break;
+                        case 1: {
+                            time_item = times.present.statement;
+                        }
+                            break;
+                        case 2: {
+                            time_item = times.present.negation;
+                        }
+                            break;
+                    }
+                }
+                    break;
+                case 2: {
+                    switch (getRandomInRange(0,2)) {
+                        case 0: {
+                            time_item = times.past.question;
+                            isQuestion = true;
+                        }
+                            break;
+                        case 1: {
+                            time_item = times.past.statement;
+                        }
+                            break;
+                        case 2: {
+                            time_item = times.past.negation;
+                        }
+                            break;
+                    }
+                }
+                    break;
+            }
+
+
+
+
+            document.getElementById("exercise").remove();
+
+            var exercise_place = document.getElementById("exercise");
+
+            if (!exercise_place) {
+                exercise_place = document.createElement("div");
+                exercise_place.id = "exercise";
+                var part1 = "";
+                var part2 = "";
+                var part3 = "";
+
+                part1 =
+                    "<H2 style='text-transform:uppercase'>"+time_item.about+"</H2><hr>"+
+                    "<p><b>РњРµСЃС‚РѕРёРјРµРЅРёРµ:</b> "+pronoun_item.subject_pronoun+"</p>"+
+                    "<p><b>Р“Р»Р°РіРѕР»:</b> "+verb_item.base_form+"("+verb_item.simple_past+") вЂ” "+verb_item.translate+"</p>"+
+                    "<p><b>Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕРµ РјРµСЃС‚РѕРёРјРµРЅРёРµ:</b> "+second_pronoun_item.object_pronoun+"</p>"+
+                    "<p><b>РќР°СЂРµС‡РёРµ:</b> "+parameter_item.pronoun+"("+parameter_item.scope_of_use+") вЂ” "+parameter_item.translate+"</p>" +
+                    "<p><b>РџСЂРµРґР»РѕРі:</b> "+prepositions_item.pretext+" вЂ” " +prepositions_item.translate+"</p>";
+
+                if(isQuestion){
+                    part2 = "<p><b>Р’РѕРїСЂРѕСЃРёС‚РµР»СЊРЅРѕРµ СЃР»РѕРІРѕ:</b> "+interrogative_item.word+" вЂ” "+interrogative_item.translate+"</p>";
+
+                }
+                part3 = "<p id='rule' style='visibility: hidden; color: darkred'><b>РџСЂР°РІРёР»Рѕ:</b></br> "+time_item.rule+"</p>";
+                exercise_place.innerHTML = part1 + part2 + part3;
+                document.body.insertBefore(exercise_place, document.getElementById("place"));
+
+
+
+            }
+        }
+        getExercise();
+    </script>
 </body>
 </html>
