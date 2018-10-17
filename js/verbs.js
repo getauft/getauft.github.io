@@ -6,12 +6,12 @@ var html;
 
 verbs.forEach(function (verb){
     html +=
-        '<div class="row">'+
-            '<div class="col-md mb-1">'+verb.base_form+'</div>'+
-            '<div class="col-md mb-1">'+verb.simple_past+'</div>'+
-            '<div class="col-md mb-1">'+verb.past_participle+'</div>'+
-            '<div class="col-md mb-1">'+verb.translate+'</div>'+
-        '</div>'
+        '<tr>'+
+            '<th scope="row">'+verb.base_form+'</th>'+
+            '<td>'+verb.simple_past+'</td>'+
+            '<td>'+verb.past_participle+'</td>'+
+            '<td>'+verb.translate+'</td>'+
+        '</tr>'
     ;
 });
 place_verb_items.innerHTML = html;
