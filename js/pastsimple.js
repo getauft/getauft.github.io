@@ -83,15 +83,14 @@ function getExercise() {
     document.getElementById("place_time_about_type").innerText = time_item.about_type;
     document.getElementById("place_time_about_time").innerText = time_item.about_time;
 
-    if(verb_item.base_form === "be") {
-        document.getElementById("place_pronoun_subject").innerHTML = '<span class="text-danger font-weight-bold">'+pronoun_item.subject_pronoun+'</span>';
-    } else {
-        document.getElementById("place_pronoun_subject").innerText = pronoun_item.subject_pronoun;
-    }
+    document.getElementById("place_pronoun_subject").innerText = pronoun_item.subject_pronoun;
     document.getElementById("place_pronoun_object").innerText = second_pronoun_item.object_pronoun;
 
-    document.getElementById("place_verb_base_form").innerText = verb_item.base_form;
-    document.getElementById("place_verb_past_participle").innerText = verb_item.past_participle;
+    if(verb_item.base_form === "be") {
+        document.getElementById("place_verb_base_form").innerHTML = '<span class="text-danger font-weight-bold">'+verb_item.base_form+'</span>';
+    } else {
+        document.getElementById("place_verb_past_participle").innerText = verb_item.past_participle;
+    }
     document.getElementById("place_verb_translate").innerText = verb_item.translate;
 
     document.getElementById("place_parameter_pronoun").innerText = parameter_item.pronoun;
