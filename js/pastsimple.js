@@ -16,7 +16,7 @@ function getExercise() {
     var verb_item = verbs[getRandomInRange(0,verbs.length-1)];
     var pronoun_item = pronouns[getRandomInRange(0,pronouns.length-1)];
     var second_pronoun_item = pronouns[getRandomInRange(0,pronouns.length-1)];
-    if (pronoun_item.object_pronoun == second_pronoun_item.object_pronoun) {
+    if (pronoun_item.object_pronoun === second_pronoun_item.object_pronoun) {
         second_pronoun_item = pronouns[getRandomInRange(0,pronouns.length-1)];
     };
     var interrogative_item = interrogative[getRandomInRange(0,interrogative.length-1)];
