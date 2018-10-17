@@ -23,4 +23,5 @@ pronouns.forEach(function (pronoun){
         '</div>'
     ;
 });
-place_verb_items.innerHTML = html;
+
+place_pronoun_items.innerHTML = html;
