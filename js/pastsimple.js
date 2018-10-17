@@ -105,7 +105,12 @@ function getExercise() {
         document.getElementById("place_interrogative_translate").innerText = interrogative_item.translate;
     }
 
-    document.getElementById("place_rule").innerHTML = time_item.rule;
+    if(verb_item.base_form === "be"){
+        document.getElementById("place_rule").innerHTML = time_item.rule_to_be;
+    } else {
+        document.getElementById("place_rule").innerHTML = time_item.rule;
+    }
+
     if (!showRule){
         document.getElementById("place_rule").style.visibility = "hidden";
     } else {
