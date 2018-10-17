@@ -7,11 +7,13 @@ var i = 1;
 
 verbs.forEach(function (verb){
     html +=
-        '<div class="row">'+
-            '<div class="col-md">'+
-                i+'. <strong>'+verb.base_form+'</strong> ( '+verb.simple_past+') ['+verb.past_participle+'] — '+verb.translate+
-            '</div>'+
-        '</div>'
+        '<tr>'+
+            '<th>'+i+'.</th>'+
+            '<th scope="row">'+verb.base_form+'</th>'+
+            '<th>'+verb.simple_past+'</th>'+
+            '<th>'+verb.past_participle+'</th>'+
+            '<th>'+verb.translate+'</th>'+
+        '</tr>'
     ;
     i++;
 });
