@@ -83,7 +83,11 @@ function getExercise() {
     document.getElementById("place_time_about_type").innerText = time_item.about_type;
     document.getElementById("place_time_about_time").innerText = time_item.about_time;
 
-    document.getElementById("place_pronoun_subject").innerText = pronoun_item.subject_pronoun;
+    if(verb_item.base_form === "be") {
+        document.getElementById("place_pronoun_subject").innerHTML = '<span class="text-warning">'+pronoun_item.subject_pronoun+'</span>';
+    } else {
+        document.getElementById("place_pronoun_subject").innerText = pronoun_item.subject_pronoun;
+    }
     document.getElementById("place_pronoun_object").innerText = second_pronoun_item.object_pronoun;
 
     document.getElementById("place_verb_base_form").innerText = verb_item.base_form;
