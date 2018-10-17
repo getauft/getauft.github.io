@@ -9,7 +9,7 @@ verbs.forEach(function (verb){
     html +=
         '<div class="row">'+
             '<div class="col-md">'+
-                i+'. <strong>'+verb.base_form+'</strong> — '+verb.simple_past+' — '+verb.past_participle+' — '+verb.translate+
+                i+'. <strong>'+verb.base_form+'</strong> ( '+verb.simple_past+') ['+verb.past_participle+'] — '+verb.translate+
             '</div>'+
         '</div>'
     ;
