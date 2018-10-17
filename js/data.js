@@ -204,7 +204,7 @@ var  times = {
         statement: {
             about_type: 'утверждение',
             about_time: 'прошедшее время',
-            rule: '[I, you, we, they he, she] {verd-d / verb simplepast form}.',
+            rule: '[I, you, we, they he, she] {verd-d / verb simple past form}.',
             rule_to_be: '[I, he, she, it] was.</br>[You, we, they] where.'
         },
         negation: {
