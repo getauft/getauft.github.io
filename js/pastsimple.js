@@ -110,11 +110,9 @@ function getExercise() {
     }
 
     if(verb_item.base_form === "be"){
-        document.getElementById("place_rule").innerHTML = time_item.rule_to_be;
-        document.getElementById("place_rule").className = "alert-danger";
+        document.getElementById("place_rule").innerHTML = '<div class="alert alert-danger" role="alert">'+time_item.rule_to_be+'</div>';
     } else {
-        document.getElementById("place_rule").innerHTML = time_item.rule;
-        document.getElementById("place_rule").className = "alert-warning";
+        document.getElementById("place_rule").innerHTML = '<div class="alert alert-warning" role="alert">'+time_item.rule+'</div>';
     }
 
     if (!showRule){
