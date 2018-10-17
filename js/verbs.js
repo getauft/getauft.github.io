@@ -7,10 +7,10 @@ var html = "";
 verbs.forEach(function (verb){
     html +=
         '<tr>'+
-            '<th>'+verb.base_form+'</th>'+
-            '<th>'+verb.simple_past+'</th>'+
-            '<th>'+verb.past_participle+'</th>'+
-            '<th>'+verb.translate+'</th>'+
+            '<td>'+verb.base_form+'</td>'+
+            '<td>'+verb.simple_past+'</td>'+
+            '<td>'+verb.past_participle+'</td>'+
+            '<td>'+verb.translate+'</td>'+
         '</tr>'
     ;
 });
