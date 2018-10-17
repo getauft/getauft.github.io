@@ -54,10 +54,10 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/pastsimple.html">Past Simple</a>
+                    <a class="nav-link" href="/pastsimple.html">Past Simple <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
         </div>
@@ -65,7 +65,59 @@
 </header>
 
 <main role="main" class="container">
+    <div class="row" id="place_time">
+        <div class="col-sm mb-3">
+            <p class="h1" id="place_time_about_type"></p>
+            <p class="h3 text-muted" id="place_time_about_time"></p>
+        </div>
 
+    </div>
+    <div class="row" id="place_pronoun">
+        <div class="col-sm mb-1">
+            <span><strong>Местоимение: </strong></span>
+            <span id="place_pronoun_subject"></span>
+            <span> &rArr; </span>
+            <span id="place_pronoun_object" class="text-muted"></span>
+        </div>
+    </div>
+    <div class="row" id="place_verb">
+        <div class="col-sm mb-1">
+            <span><strong>Глагол: </strong></span>
+            <span id="place_verb_base_form"></span>
+            (<span id="place_verb_past_participle" class="text-muted"></span>)
+            — <span id="place_verb_translate" class="text-muted"></span>
+        </div>
+    </div>
+    <div class="row" id="place_parameter">
+        <div class="col-sm mb-1">
+            <span><strong>Наречие: </strong></span>
+            <span id="place_parameter_pronoun"></span>
+            (about <span id="place_parameter_scope_of_use" class="text-muted"></span>)
+            — <span id="place_parameter_translate" class="text-muted"></span>
+        </div>
+    </div>
+    <div class="row" id="place_preposition">
+        <div class="col-sm mb-1">
+            <span><strong>Предлог: </strong></span>
+            <span id="place_preposition_pretext"></span>
+            <span> — </span>
+            <span id="place_preposition_translate" class="text-muted"></span>
+        </div>
+    </div>
+    <div class="row" id="place_interrogative">
+        <div class="col-sm mb-1">
+            <span><strong>Вопросительное слово: </strong></span>
+            <span id="place_interrogative_word"></span>
+            <span> — </span>
+            <span id="place_interrogative_translate" class="text-muted"></span>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-sm">
+            <div class="alert alert-warning" id="place_rule" role="alert">
+            </div>
+        </div>
+    </div>
 </main>
 
 <footer class="footer">
@@ -84,5 +136,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+<script src="./js/pastsimple.js" type="application/javascript"></script>
 </body>
 </html>
