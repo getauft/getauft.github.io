@@ -158,51 +158,60 @@ var  times = {
         question: {
             about_type: 'вопрос',
             about_time: 'будущее время',
-            rule: 'will [I, you, we, they he, she] {verd}?'
+            rule: 'Will [I, you, we, they he, she] {verd}?',
+            rule_to_be: 'Will [I, you, we, they he, she] be?'
         },
         statement: {
             about_type: 'утверждение',
             about_time: 'будущее время',
-            rule: '[I, you, we, they he, she] will {verd}'
+            rule: '[I, you, we, they he, she] will {verd}.',
+            rule_to_be: '[I, you, we, they he, she] will be.'
         },
         negation: {
             about_type: 'отрицание',
             about_time: 'будущее время',
-            rule: '[I, you, we, they he, she] will not {verd}'
+            rule: '[I, you, we, they he, she] will not {verd}.',
+            rule_to_be: '[I, you, we, they he, she] will not be.'
         }
     },
     present: {
         question: {
             about_type: 'вопрос',
             about_time: 'настоящее время',
-            rule: 'do [I, you, we, they] {verb}? </br> does [he, she] {verb}?'
+            rule: 'Do [I, you, we, they] {verb}? </br> Does [he, she] {verb}?',
+            rule_to_be: 'Am [I]?</br>Is [he, she, it]?</br>Are [you, we, they]?'
         },
         statement: {
             about_type: 'утверждение',
             about_time: 'настоящее время',
-            rule: '[I, you, we, they] {verb}? </br> [he, she] {verb}-s?'
+            rule: '[I, you, we, they] {verb}. </br>[He, she] {verb}-s.',
+            rule_to_be: '[I] am</br>[He, she, it] is.</br>[You, we, they] are.'
         },
         negation: {
             about_type: 'отрицание',
             about_time: 'настоящее время',
-            rule: '[I, you, we, they] do not {verb}? </br> [he, she] does not {verb}?'
+            rule: '[I, you, we, they] do not {verb}. </br> [He, she] does not {verb}.',
+            rule_to_be: '[I, you, we, they he, she] not.'
         }
     },
     past: {
         question: {
             about_type: 'вопрос',
             about_time: 'прошедшее время',
-            rule: 'did [I, you, we, they he, she] {verd}?'
+            rule: 'Did [I, you, we, they he, she] {verd}?',
+            rule_to_be: 'Was [I, he, she, it]?</br>Where [you, we, they]?'
         },
         statement: {
             about_type: 'утверждение',
             about_time: 'прошедшее время',
-            rule: '[I, you, we, they he, she] {verd}-d / {verb simplepast form}'
+            rule: '[I, you, we, they he, she] {verd-d / verb simplepast form}.',
+            rule_to_be: '[I, he, she, it] was.</br>[You, we, they] where.'
         },
         negation: {
             about_type: 'отрицание',
             about_time: 'прошедшее время',
-            rule: '[I, you, we, they he, she] did not {verd}'
+            rule: '[I, you, we, they he, she] did not {verd}.',
+            rule_to_be: '[I, you, we, they he, she] not.'
         }
     }
 };
