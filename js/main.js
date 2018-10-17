@@ -307,7 +307,7 @@ function getExercise() {
     if (!isQuestion){
         document.getElementById("place_interrogative").style.display = "none";
     } else {
-        document.getElementById("place_interrogative").style.display = "table-row";
+        document.getElementById("place_interrogative").style.display = "flex";
         document.getElementById("place_interrogative_word").innerText = interrogative_item.word;
         document.getElementById("place_interrogative_translate").innerText = interrogative_item.translate;
     }

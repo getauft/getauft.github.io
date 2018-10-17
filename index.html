@@ -6,15 +6,18 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Sticky Footer Navbar Template for Bootstrap</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <style type="text/css">
         html {
             position: relative;
             min-height: 100%;
         }
+
         body {
             margin-bottom: 60px;
         }
+
         .footer {
             position: absolute;
             bottom: 0;
@@ -23,6 +26,7 @@
             line-height: 60px;
             background-color: #f5f5f5;
         }
+
         body > .container {
             padding: 60px 15px 0;
         }
@@ -44,9 +48,9 @@
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <a class="navbar-brand" href="#">getauft.github.io</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <!--button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-        </button>
+        </button!-->
         <!--div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
@@ -64,60 +68,59 @@
 </header>
 
 <main role="main" class="container">
-
-        <div id="place_time">
-            <span class="h1" id="place_time_about_type"></span>
-            <span class="h3 text-muted" id="place_time_about_time"></span>
+    <div class="row" id="place_time">
+        <div class="col-md mb-3">
+            <p class="h1" id="place_time_about_type"></p>
+            <p class="h3 text-muted" id="place_time_about_time"></p>
         </div>
-        <div class="lead">
-            <table class="table table-sm ">
-                <tbody>
-                <tr  id="place_pronoun">
-                    <th scope="row">Местоимение</th>
-                    <td>
-                        <span id="place_pronoun_subject"></span>
-                        <span> &rArr; </span>
-                        <span id="place_pronoun_object" class="text-muted"></span>
-                    </td>
-                </tr>
-                <tr  id="place_verb">
-                    <th scope="row">Глагол</th>
-                    <td>
-                        <span id="place_verb_base_form"></span>
-                        (<span id="place_verb_past_participle" class="text-muted"></span>)
-                        — <span id="place_verb_translate" class="text-muted"></span>
-                    </td>
-                </tr>
-                <tr id="place_parameter">
-                    <th scope="row">Наречие</th>
-                    <td>
-                        <span id="place_parameter_pronoun"></span>
-                        (about <span id="place_parameter_scope_of_use" class="text-muted"></span>)
-                        — <span id="place_parameter_translate" class="text-muted"></span>
-                    </td>
-                </tr>
-                <tr id="place_preposition">
-                    <th scope="row">Предлог</th>
-                    <td>
-                        <span id="place_preposition_pretext"></span>
-                        <span> — </span>
-                        <span id="place_preposition_translate" class="text-muted"></span>
-                    </td>
-                </tr>
-                <tr id="place_interrogative">
-                    <th scope="row">Вопросительное</br>слово</th>
-                    <td>
-                        <span id="place_interrogative_word"></span>
-                        <span> — </span>
-                        <span id="place_interrogative_translate" class="text-muted"></span>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <hr class="my-4">
-        <p id="place_rule" class="text-danger"></p>
 
+    </div>
+    <div class="row" id="place_pronoun">
+        <div class="col-md mb-1">
+            <span class="mr-3"><strong>Местоимение:</strong></span>
+            <span id="place_pronoun_subject"></span>
+            <span> &rArr; </span>
+            <span id="place_pronoun_object" class="text-muted"></span>
+        </div>
+    </div>
+    <div class="row" id="place_verb">
+        <div class="col-md mb-1">
+            <span class="mr-3"><strong>Глагол:</strong></span>
+            <span id="place_verb_base_form"></span>
+            (<span id="place_verb_past_participle" class="text-muted"></span>)
+            — <span id="place_verb_translate" class="text-muted"></span>
+        </div>
+    </div>
+    <div class="row" id="place_parameter">
+        <div class="col-md mb-1">
+            <span class="mr-3"><strong>Наречие:</strong></span>
+            <span id="place_parameter_pronoun"></span>
+            (about <span id="place_parameter_scope_of_use" class="text-muted"></span>)
+            — <span id="place_parameter_translate" class="text-muted"></span>
+        </div>
+    </div>
+    <div class="row" id="place_preposition">
+        <div class="col-md mb-1">
+            <span class="mr-3"><strong>Предлог:</strong></span>
+            <span id="place_preposition_pretext"></span>
+            <span> — </span>
+            <span id="place_preposition_translate" class="text-muted"></span>
+        </div>
+    </div>
+    <div class="row" id="place_interrogative">
+        <div class="col-md mb-1">
+            <span class="mr-3"><strong>Вопросительное слово:</strong></span>
+            <span id="place_interrogative_word"></span>
+            <span> — </span>
+            <span id="place_interrogative_translate" class="text-muted"></span>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md">
+            <div class="alert alert-warning" id="place_rule" role="alert">
+            </div>
+        </div>
+    </div>
 </main>
 
 <footer class="footer">
@@ -127,9 +130,15 @@
     </div>
 </footer>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
 <script src="./js/main.js" type="application/javascript"></script>
 </body>
 </html>
