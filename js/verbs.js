@@ -2,16 +2,15 @@
 
 var place_verb_items = document.getElementById("place_verb_items");
 
-var html;
+var html = "";
 
 verbs.forEach(function (verb){
     html +=
-        '<tr>'+
-            '<th scope="row">'+verb.base_form+'</th>'+
-            '<td>'+verb.simple_past+'</td>'+
-            '<td>'+verb.past_participle+'</td>'+
-            '<td>'+verb.translate+'</td>'+
-        '</tr>'
+        '<div class="row">'+
+            '<div class="col-md">'+
+                verb.base_form+' — '+verb.simple_past+' — '+verb.past_participle+' — '+verb.translate+
+            '</div>'+
+        '</div>'
     ;
 });
 place_verb_items.innerHTML = html;
