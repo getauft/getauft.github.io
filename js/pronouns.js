@@ -35,9 +35,9 @@ parameters.forEach(function (parameter) {
         '<div class="row">'+
             '<div class="col-md">'+
                 '<strong>'+parameter.pronoun+'</strong>'+
-                ' (about '+
+                '<span class="text-muted"> (about '+
                 parameter.scope_of_use+
-                ') — '+
+                ')</span> — '+
                 parameter.translate+
             '</div>'+
         '</div>'
