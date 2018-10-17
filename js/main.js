@@ -150,7 +150,7 @@ var prepositions = [
     {pretext: 'without', translate: 'без'},
     {pretext: 'for', translate: 'для'},
     {pretext: 'about', translate: 'о / около'},
-    {pretext: 'at', translate: 'в (нахождение в окружении или обстановке'}
+    {pretext: 'at', translate: 'в (нахождение в окружении или обстановке)'}
 ];
 
 var  times = {
@@ -312,7 +312,7 @@ function getExercise() {
         document.getElementById("place_interrogative_translate").innerText = interrogative_item.translate;
     }
 
-    document.getElementById("place_rule").innerText = time_item.rule;
+    document.getElementById("place_rule").innerHTML = time_item.rule;
     if (!showRule){
         document.getElementById("place_rule").style.visibility = "hidden";
     } else {
