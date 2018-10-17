@@ -111,8 +111,10 @@ function getExercise() {
 
     if(verb_item.base_form === "be"){
         document.getElementById("place_rule").innerHTML = time_item.rule_to_be;
+        document.getElementById("place_rule").className = "alert-danger";
     } else {
         document.getElementById("place_rule").innerHTML = time_item.rule;
+        document.getElementById("place_rule").className = "alert-warning";
     }
 
     if (!showRule){
