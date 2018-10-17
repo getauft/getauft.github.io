@@ -79,9 +79,16 @@ function getExercise() {
         }
             break;
     }
-
-    document.getElementById("place_time_about_type").innerText = time_item.about_type;
-    document.getElementById("place_time_about_time").innerText = time_item.about_time;
+    
+    if (time_item.about_type === 'вопрос'){
+        document.getElementById("place_time_about_time").innerText = time_item.about_time+'?';
+    }
+    if (time_item.about_type === 'утверждение'){
+        document.getElementById("place_time_about_time").innerText = time_item.about_time+'.';
+    }
+    if (time_item.about_type === 'отрицание'){
+        document.getElementById("place_time_about_time").innerHTML = '<s>'+time_item.about_time+'</s>';
+    }
 
     document.getElementById("place_pronoun_subject").innerText = pronoun_item.subject_pronoun;
     document.getElementById("place_pronoun_object").innerText = second_pronoun_item.object_pronoun;
