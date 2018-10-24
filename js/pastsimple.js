@@ -94,6 +94,7 @@ function getExercise() {
     document.getElementById("place_verb_past_participle").innerText = verb_item.past_participle;
     document.getElementById("place_verb_translate").innerText = verb_item.translate;
 
+/*
     document.getElementById("place_parameter_pronoun").innerText = parameter_item.pronoun;
     document.getElementById("place_parameter_scope_of_use").innerText = parameter_item.scope_of_use;
     document.getElementById("place_parameter_translate").innerText = parameter_item.translate;
@@ -108,7 +109,7 @@ function getExercise() {
         document.getElementById("place_interrogative_word").innerText = interrogative_item.word;
         document.getElementById("place_interrogative_translate").innerText = interrogative_item.translate;
     }
-
+*/
     if(verb_item.base_form === "be"){
         document.getElementById("place_rule").innerHTML = '<div class="alert alert-danger" role="alert">'+time_item.rule_to_be+'</div>';
     } else {
