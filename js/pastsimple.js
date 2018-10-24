@@ -84,7 +84,7 @@ function getExercise() {
     document.getElementById("place_time_about_time").innerText = time_item.about_time;
 
     document.getElementById("place_pronoun_subject").innerText = pronoun_item.subject_pronoun;
-    document.getElementById("place_pronoun_object").innerText = second_pronoun_item.object_pronoun;
+//    document.getElementById("place_pronoun_object").innerText = second_pronoun_item.object_pronoun;
 
     if(verb_item.base_form === "be") {
         document.getElementById("place_verb_base_form").innerHTML = '<span class="text-danger font-weight-bold">'+verb_item.base_form+'</span>';
