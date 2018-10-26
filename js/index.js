@@ -78,10 +78,9 @@ function getExercise() {
                         ){
                             ending = "es";
                         }
-                        answer = pronoun_item.subject_pronoun + " " + verb_item.base_form + ending +"?";
+                        answer = pronoun_item.subject_pronoun + " " + verb_item.base_form + ending +".";
 
                     } else {
-                        console.log("NOT HE OR SHE");
                         answer = pronoun_item.subject_pronoun + " " + verb_item.base_form + ".";
                     }
                 }
