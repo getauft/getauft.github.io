@@ -11,25 +11,34 @@ function showRulePlace() {
     document.getElementById("button_show_rule").style.visibility = "hidden";
 }
 
+function showAnswerPlace() {
+    document.getElementById("place_answer").style.visibility = "visible";
+    document.getElementById("button_show_answer").style.visibility = "hidden";
+}
+
 function getExercise() {
     var time_item;
     var verb_item = verbs[getRandomInRange(0,verbs.length-1)];
     var pronoun_item = pronouns[getRandomInRange(0,pronouns.length-1)];
     var isQuestion = false;
+    var answer = "";
     switch (getRandomInRange(0,2)) {
         case 0: {
             switch (getRandomInRange(0,2)) {
                 case 0: {
                     time_item = times.future.question;
                     isQuestion = true;
+                    answer = "will " + pronoun_item.subject_pronoun + " " + verb_item.base_form + "?";
                 }
                     break;
                 case 1: {
                     time_item = times.future.statement;
+                    answer = pronoun_item.subject_pronoun + " will " + verb_item.base_form + ".";
                 }
                     break;
                 case 2: {
                     time_item = times.future.negation;
+                    answer = pronoun_item.subject_pronoun + " will not " + verb_item.base_form + ".";
                 }
                     break;
             }
@@ -40,14 +49,46 @@ function getExercise() {
                 case 0: {
                     time_item = times.present.question;
                     isQuestion = true;
+                    if (pronoun_item.subject_pronoun !== 'he' || pronoun_item.subject_pronoun !== 'she'){
+                        answer = "do " + pronoun_item.subject_pronoun + " " + verb_item.base_form + "?";
+                    } else {
+                        answer = "does " + pronoun_item.subject_pronoun + " " + verb_item.base_form + "?";
+                    }
                 }
                     break;
                 case 1: {
                     time_item = times.present.statement;
+                    if (pronoun_item.subject_pronoun !== 'he' || pronoun_item.subject_pronoun !== 'she'){
+                        answer = pronoun_item.subject_pronoun + " " + verb_item.base_form + ".";
+                    } else {
+                        //y
+                        var ending = "s";
+                        if(verb_item.base_form[verb_item.base_form.length-1]==="y"){
+                            ending = "ies";
+                            verb_item.base_form = verb_item.base_form.substring(0,length-1);
+                        }
+                        //ss, ch, x, tch, sh, zz
+                        if(
+                            verb_item.base_form[verb_item.base_form.length-2] + verb_item.base_form[verb_item.base_form.length-1] === "ss" ||
+                            verb_item.base_form[verb_item.base_form.length-2] + verb_item.base_form[verb_item.base_form.length-1] === "ch" ||
+                            verb_item.base_form[verb_item.base_form.length-2] + verb_item.base_form[verb_item.base_form.length-1] === "sh" ||
+                            verb_item.base_form[verb_item.base_form.length-2] + verb_item.base_form[verb_item.base_form.length-1] === "zz" ||
+                            verb_item.base_form[verb_item.base_form.length-1] === "x" ||
+                            verb_item.base_form[verb_item.base_form.length-3] + verb_item.base_form[verb_item.base_form.length-2] + verb_item.base_form[verb_item.base_form.length-1] === "tch"
+                        ){
+                            ending = "es";
+                        }
+                        answer = pronoun_item.subject_pronoun + " " + verb_item.base_form + ending +"?";
+                    }
                 }
                     break;
                 case 2: {
                     time_item = times.present.negation;
+                    if (pronoun_item.subject_pronoun !== 'he' || pronoun_item.subject_pronoun !== 'she'){
+                        answer = pronoun_item.subject_pronoun + " don't" + verb_item.base_form + ".";
+                    } else {
+                        answer = pronoun_item.subject_pronoun + " doesn't" + verb_item.base_form + ".";
+                    }
                 }
                     break;
             }
@@ -58,14 +99,17 @@ function getExercise() {
                 case 0: {
                     time_item = times.past.question;
                     isQuestion = true;
+                    answer = "did " + pronoun_item.subject_pronoun + " " + verb_item.base_form + "?";
                 }
                     break;
                 case 1: {
                     time_item = times.past.statement;
+                    answer = pronoun_item.subject_pronoun + verb_item.past_participle + ".";
                 }
                     break;
                 case 2: {
                     time_item = times.past.negation;
+                    answer = pronoun_item.subject_pronoun + " did not " + verb_item.base_form;
                 }
                     break;
             }
@@ -73,9 +117,11 @@ function getExercise() {
             break;
     }
 
+    answer = answer[0].toUpperCase() + answer.substring(1);
+
+
     document.getElementById("place_time_about_type").innerText = time_item.about_type;
     document.getElementById("place_time_about_time").innerText = time_item.about_time;
-
     document.getElementById("place_pronoun_subject").innerText = pronoun_item.subject_pronoun;
 
     if(verb_item.base_form === "be") {
@@ -97,6 +143,9 @@ function getExercise() {
     } else {
         document.getElementById("place_rule").style.visibility = "visible";
     }
+
+    //Answer
+    document.getElementById("place_answer").innerHTML = '<div class="alert alert-info" role="alert">'+answer+'</div>';
 
     document.getElementById("button_show_rule").style.visibility = "visible";
 
