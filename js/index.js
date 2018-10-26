@@ -22,7 +22,8 @@ function getExercise() {
     var pronoun_item = pronouns[getRandomInRange(0,pronouns.length-1)];
     var isQuestion = false;
     var answer = "";
-    switch (getRandomInRange(0,2)) {
+    //getRandomInRange(0,2)
+    switch (1) {
         case 0: {
             switch (getRandomInRange(0,2)) {
                 case 0: {
@@ -45,7 +46,8 @@ function getExercise() {
         }
             break;
         case 1: {
-            switch (getRandomInRange(0,2)) {
+            //getRandomInRange(0,2)
+            switch (1) {
                 case 0: {
                     time_item = times.present.question;
                     isQuestion = true;
