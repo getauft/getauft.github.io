@@ -145,6 +145,7 @@ function getExercise() {
     }
 
     //Answer
+    document.getElementById("place_answer").style.visibility = "hidden";
     document.getElementById("place_answer").innerHTML = '<div class="alert alert-info" role="alert">'+answer+'</div>';
 
     document.getElementById("button_show_rule").style.visibility = "visible";
