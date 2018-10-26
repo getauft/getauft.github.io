@@ -160,7 +160,7 @@ function getExercise() {
 
     var xhr = new XMLHttpRequest();
     var body = 'text=' + encodeURIComponent(answer);
-    xhr.open("POST", yandex_url+yandex_key, true);
+    xhr.open("POST", yandex_url+yandex_key, false);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.send(body);
     if(xhr.status === 200) {
