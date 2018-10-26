@@ -3,7 +3,7 @@
 var showRule = false;
 var answer = "";
 var yandex_key = "trnsl.1.1.20181026T095610Z.0f9e5b3c50d78498.83dff75a74e7d95e0712640c87b207295ef8842a";
-var yandex_url = "https://translate.yandex.net/api/v1.5/tr.json/translate?lang=ru&format=plain&key=";
+var yandex_url = "https://translate.yandex.net/api/v1.5/tr.json/translate";
 
 function getRandomInRange(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -159,8 +159,8 @@ function getExercise() {
     answer = answer[0].toUpperCase() + answer.substring(1);
 
     var xhr = new XMLHttpRequest();
-    var body = 'text=' + encodeURIComponent(answer);
-    xhr.open("POST", yandex_url+yandex_key, false);
+    var body = 'text=' + encodeURIComponent(answer)+ 'lang=ru&format=plain&key=' + yandex_key;
+    xhr.open("POST", yandex_url, false);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.send(body);
     if(xhr.status === 200) {
