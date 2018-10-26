@@ -65,7 +65,7 @@ function getExercise() {
                         var ending = "s";
                         if(verb_item.base_form[verb_item.base_form.length-1] === "y"){
                             ending = "ies";
-                            verb_item.base_form = verb_item.base_form.substring(0,length-1);
+                            verb_item.base_form = verb_item.base_form.substring(0,verb_item.base_form.length-1);
                         }
                         //ss, ch, x, tch, sh, zz
                         if(
