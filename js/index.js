@@ -109,7 +109,7 @@ function getExercise() {
                     break;
                 case 2: {
                     time_item = times.past.negation;
-                    answer = pronoun_item.subject_pronoun + " did not " + verb_item.base_form;
+                    answer = pronoun_item.subject_pronoun + " did not " + verb_item.base_form + ".";
                 }
                     break;
             }
