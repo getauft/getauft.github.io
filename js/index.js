@@ -60,23 +60,23 @@ function getExercise() {
                     break;
                 case 1: {
                     time_item = times.present.statement;
-                    if (pronoun_item.subject_pronoun != "he" || pronoun_item.subject_pronoun != "she"){
+                    if (pronoun_item.subject_pronoun !== "he" || pronoun_item.subject_pronoun !== "she"){
                         console.log("NOT HE OR SHE");
                         answer = pronoun_item.subject_pronoun + " " + verb_item.base_form + ".";
                     } else {
                         //y
                         var ending = "s";
-                        if(verb_item.base_form[verb_item.base_form.length-1] == "y"){
+                        if(verb_item.base_form[verb_item.base_form.length-1] === "y"){
                             ending = "ies";
                             verb_item.base_form = verb_item.base_form.substring(0,length-1);
                         }
                         //ss, ch, x, tch, sh, zz
                         if(
-                            verb_item.base_form[verb_item.base_form.length-2] + verb_item.base_form[verb_item.base_form.length-1] == "ss" ||
-                            verb_item.base_form[verb_item.base_form.length-2] + verb_item.base_form[verb_item.base_form.length-1] == "ch" ||
-                            verb_item.base_form[verb_item.base_form.length-2] + verb_item.base_form[verb_item.base_form.length-1] == "sh" ||
-                            verb_item.base_form[verb_item.base_form.length-2] + verb_item.base_form[verb_item.base_form.length-1] == "zz" ||
-                            verb_item.base_form[verb_item.base_form.length-1] == "x" ||
+                            verb_item.base_form[verb_item.base_form.length-2] + verb_item.base_form[verb_item.base_form.length-1] === "ss" ||
+                            verb_item.base_form[verb_item.base_form.length-2] + verb_item.base_form[verb_item.base_form.length-1] === "ch" ||
+                            verb_item.base_form[verb_item.base_form.length-2] + verb_item.base_form[verb_item.base_form.length-1] === "sh" ||
+                            verb_item.base_form[verb_item.base_form.length-2] + verb_item.base_form[verb_item.base_form.length-1] === "zz" ||
+                            verb_item.base_form[verb_item.base_form.length-1] === "x" ||
                             verb_item.base_form[verb_item.base_form.length-3] + verb_item.base_form[verb_item.base_form.length-2] + verb_item.base_form[verb_item.base_form.length-1] === "tch"
                         ){
                             ending = "es";
