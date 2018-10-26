@@ -85,9 +85,9 @@ function getExercise() {
                 case 2: {
                     time_item = times.present.negation;
                     if (pronoun_item.subject_pronoun !== 'he' || pronoun_item.subject_pronoun !== 'she'){
-                        answer = pronoun_item.subject_pronoun + " don't" + verb_item.base_form + ".";
+                        answer = pronoun_item.subject_pronoun + " don't " + verb_item.base_form + ".";
                     } else {
-                        answer = pronoun_item.subject_pronoun + " doesn't" + verb_item.base_form + ".";
+                        answer = pronoun_item.subject_pronoun + " doesn't " + verb_item.base_form + ".";
                     }
                 }
                     break;
@@ -104,7 +104,7 @@ function getExercise() {
                     break;
                 case 1: {
                     time_item = times.past.statement;
-                    answer = pronoun_item.subject_pronoun + verb_item.past_participle + ".";
+                    answer = pronoun_item.subject_pronoun + " " + verb_item.past_participle + ".";
                 }
                     break;
                 case 2: {
