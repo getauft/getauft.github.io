@@ -153,7 +153,7 @@ function getExercise() {
 
     answer = answer[0].toUpperCase() + answer.substring(1);
     document.getElementById("place_answer").style.visibility = "hidden";
-    document.getElementById("place_answer").innerHTML = '<div class="alert alert-info" role="alert">'+answer+'</div><button type="button" class="btn btn-info" value="&#9835;" onclick="speak()"/>';
+    document.getElementById("place_answer").innerHTML = '<div class="alert alert-info" role="alert">'+answer+'</div><button type="button" class="btn btn-info" onclick="speak()">&#9835;</button>';
 
     document.getElementById("button_show_rule").style.visibility = "visible";
     document.getElementById("button_show_answer").style.visibility = "visible";
