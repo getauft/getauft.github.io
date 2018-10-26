@@ -30,6 +30,8 @@ function speak() {
 
 
 function getExercise() {
+    document.getElementById("content").style.display = "none";
+    document.getElementById("waiting").style.display = "block";
     var time_item;
     var verb_item = verbs[getRandomInRange(0,verbs.length-1)];
     var pronoun_item = pronouns[getRandomInRange(0,pronouns.length-1)];
@@ -165,6 +167,8 @@ function getExercise() {
         var res = JSON.parse(xhr.response);
         console.log(xhr.response);
         document.getElementById("place_yandex_translate").innerText = res.text[0];
+        document.getElementById("content").style.display = "block";
+        document.getElementById("waiting").style.display = "none";
     }
 
     document.getElementById("place_answer").style.visibility = "hidden";

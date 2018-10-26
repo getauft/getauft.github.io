@@ -39,12 +39,21 @@
         code {
             font-size: 80%;
         }
+        #content {
+            display: none;
+        }
+        #waiting {
+            display: block;
+        }
 
     </style>
 </head>
 
 <body>
-
+<div id="waiting">
+    Создание задания...
+</div>
+<div id="content">
 <main role="main" class="container">
     <div class="row" id="place_time">
         <div class="col-sm mb-3">
@@ -83,6 +92,7 @@
         <button id="button_show_answer" type="button" class="btn btn-info" onclick="showAnswerPlace()">Ответ</button>
     </div>
 </footer>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
