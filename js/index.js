@@ -18,7 +18,12 @@ function showAnswerPlace() {
 }
 
 function speak() {
-    if ('speechSynthesis' in window) window.speechSynthesis.speak(new SpeechSynthesisUtterance(answer));
+    if ('speechSynthesis' in window) {
+        var utterance = new SpeechSynthesisUtterance(answer);
+        utterance.lang = "en-EN";
+        utterance.voice = findVoice(utterance.lang);
+        window.speechSynthesis.speak(utterance);
+    }
 }
 
 
