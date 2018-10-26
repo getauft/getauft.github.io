@@ -31,7 +31,7 @@ function speak() {
 
 function getExercise() {
     document.getElementById("content").style.display = "none";
-    document.getElementById("waiting").style.display = "block";
+    document.getElementById("waiting").style.display = "table-cell";
     var time_item;
     var verb_item = verbs[getRandomInRange(0,verbs.length-1)];
     var pronoun_item = pronouns[getRandomInRange(0,pronouns.length-1)];
