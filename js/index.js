@@ -162,8 +162,9 @@ function getExercise() {
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.send(body);
     if(xhr.status === 200) {
-        console.log(xhr.responseText);
+        alert(xhr.responseText);
     }
+    console.log(xhr);
 
     document.getElementById("place_answer").style.visibility = "hidden";
     document.getElementById("place_answer").innerHTML =
