@@ -158,14 +158,14 @@ function getExercise() {
 
     var xhr = new XMLHttpRequest();
     var body = 'text=' + encodeURIComponent(answer);
-    xhr.open("POST", yandex_url+yandex_key, true);
+    xhr.open("POST", yandex_url+yandex_key, false);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.send(body);
     if(xhr.status === 200) {
         var res = JSON.parse(xhr.responseText);
         console.log(res.text);
     }
-    
+
     document.getElementById("place_answer").style.visibility = "hidden";
     document.getElementById("place_answer").innerHTML =
         '<div class="row">' +
