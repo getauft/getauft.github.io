@@ -3,7 +3,7 @@
 var showRule = false;
 var answer = "";
 var yandex_key = "trnsl.1.1.20181026T095610Z.0f9e5b3c50d78498.83dff75a74e7d95e0712640c87b207295ef8842a";
-var yandex_url = "https://translate.yandex.net/api/v1.3/tr.json/translate?lang=ru&format=plain&options=1&key=";
+var yandex_url = "https://translate.yandex.net/api/v1.5/tr.json/translate?lang=ru&format=plain&options=1&key=";
 
 function getRandomInRange(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
