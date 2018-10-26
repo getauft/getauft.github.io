@@ -162,10 +162,10 @@ function getExercise() {
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.send(body);
     if(xhr.status === 200) {
-        alert(xhr.responseText);
+        var res = JSON.parse(xhr.responseText);
+        console.log(res.text);
     }
-    console.log(xhr);
-
+    
     document.getElementById("place_answer").style.visibility = "hidden";
     document.getElementById("place_answer").innerHTML =
         '<div class="row">' +
