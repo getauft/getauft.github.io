@@ -161,8 +161,9 @@ function getExercise() {
     xhr.open("POST", yandex_url+yandex_key, true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.send(body);
-    console.log("SENDED");
-    console.log(xhr.responseText);
+    if(xhr.status === 200) {
+        console.log(xhr.responseText);
+    }
 
     document.getElementById("place_answer").style.visibility = "hidden";
     document.getElementById("place_answer").innerHTML =
