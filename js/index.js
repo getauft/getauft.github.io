@@ -60,12 +60,7 @@ function getExercise() {
                     break;
                 case 1: {
                     time_item = times.present.statement;
-                    if (pronoun_item.subject_pronoun !== "he" || pronoun_item.subject_pronoun !== "she"){
-                        console.log(typeof pronoun_item.subject_pronoun);
-                        console.log(pronoun_item.subject_pronoun);
-                        console.log("NOT HE OR SHE");
-                        answer = pronoun_item.subject_pronoun + " " + verb_item.base_form + ".";
-                    } else {
+                    if (pronoun_item.subject_pronoun === "he" || pronoun_item.subject_pronoun === "she"){
                         //y
                         var ending = "s";
                         if(verb_item.base_form[verb_item.base_form.length-1] === "y"){
@@ -84,6 +79,10 @@ function getExercise() {
                             ending = "es";
                         }
                         answer = pronoun_item.subject_pronoun + " " + verb_item.base_form + ending +"?";
+
+                    } else {
+                        console.log("NOT HE OR SHE");
+                        answer = pronoun_item.subject_pronoun + " " + verb_item.base_form + ".";
                     }
                 }
                     break;
