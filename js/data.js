@@ -99,7 +99,7 @@ var verbs = [
     {base_form: 'hope', simple_past: 'hoped', past_participle: 'hoped', translate: 'надеяться'},
     {base_form: 'develop', simple_past: 'developed', past_participle: 'developed', translate: 'развивать'},
     {base_form: 'carry', simple_past: 'carried', past_participle: 'carried', translate: 'везти / нести'},
-    {base_form: 'break ', simple_past: 'broke', past_participle: 'broken', translate: 'ломать'},
+    {base_form: 'break', simple_past: 'broke', past_participle: 'broken', translate: 'ломать'},
     {base_form: 'receive', simple_past: 'received', past_participle: 'received', translate: 'получать'},
     {base_form: 'agree', simple_past: 'agreed', past_participle: 'agreed', translate: 'соглашаться'},
     {base_form: 'support', simple_past: 'supported', past_participle: 'supported', translate: 'поддерживать'},
