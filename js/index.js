@@ -19,9 +19,9 @@ function showAnswerPlace() {
 
 function speak() {
     if ('speechSynthesis' in window) {
+        var voices = window.speechSynthesis.getVoices();
         var utterance = new SpeechSynthesisUtterance(answer);
-        utterance.lang = "en-EN";
-        utterance.voice = findVoice(utterance.lang);
+        utterance.lang = "en-US";
         window.speechSynthesis.speak(utterance);
     }
 }
