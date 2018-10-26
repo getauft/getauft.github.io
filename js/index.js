@@ -155,8 +155,8 @@ function getExercise() {
     document.getElementById("place_answer").style.visibility = "hidden";
     document.getElementById("place_answer").innerHTML =
         '<div class="row">' +
-        '<div class="col-md-8"><div class="alert alert-info" role="alert">'+answer+'</div></div>' +
-        '<div class="col-md-4"><button type="button" class="btn btn-info btn-block" onclick="speak()">&#9835;</button></div>' +
+        '<div class="col-md-10"><div class="alert alert-info" role="alert">'+answer+'</div></div>' +
+        '<div class="col-md-2"><button type="button" class="btn btn-info btn-block" onclick="speak()">&#9835;</button></div>' +
         '</div>'
     ;
 
