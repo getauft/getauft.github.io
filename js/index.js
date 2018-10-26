@@ -164,7 +164,7 @@ function getExercise() {
     if(xhr.status === 200) {
         var res = JSON.parse(xhr.response);
         console.log(xhr.response);
-        document.getElementById("place_yandex_translate").innerText = res.text;
+        document.getElementById("place_yandex_translate").innerText = res.text[0];
     }
 
     document.getElementById("place_answer").style.visibility = "hidden";
