@@ -117,9 +117,6 @@ function getExercise() {
             break;
     }
 
-    answer = answer[0].toUpperCase() + answer.substring(1);
-
-
     document.getElementById("place_time_about_type").innerText = time_item.about_type;
     document.getElementById("place_time_about_time").innerText = time_item.about_time;
     document.getElementById("place_pronoun_subject").innerText = pronoun_item.subject_pronoun;
@@ -144,11 +141,12 @@ function getExercise() {
         document.getElementById("place_rule").style.visibility = "visible";
     }
 
-    //Answer
+    answer = answer[0].toUpperCase() + answer.substring(1);
     document.getElementById("place_answer").style.visibility = "hidden";
     document.getElementById("place_answer").innerHTML = '<div class="alert alert-info" role="alert">'+answer+'</div>';
 
     document.getElementById("button_show_rule").style.visibility = "visible";
+    document.getElementById("button_show_answer").style.visibility = "visible";
 
 }
 
