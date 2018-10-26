@@ -160,12 +160,11 @@ function getExercise() {
 
     var xhr = new XMLHttpRequest();
     var body = 'text=' + encodeURIComponent(answer);
-    xhr.open("POST", yandex_url+yandex_key, false);
+    xhr.open("POST", yandex_url+yandex_key, true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.send(body);
     if(xhr.status === 200) {
         var res = JSON.parse(xhr.response);
-        console.log(xhr.response);
         document.getElementById("place_yandex_translate").innerText = res.text[0];
         document.getElementById("content").style.display = "block";
         document.getElementById("waiting").style.display = "none";
