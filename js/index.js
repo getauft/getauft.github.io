@@ -163,7 +163,8 @@ function getExercise() {
     xhr.send(body);
     if(xhr.status === 200) {
         var res = JSON.parse(xhr.response);
-        document.getElementById("place_yandex_translate").innerText = res[0].text;
+        console.log(xhr.response);
+        document.getElementById("place_yandex_translate").innerText = res.text;
     }
 
     document.getElementById("place_answer").style.visibility = "hidden";
