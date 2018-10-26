@@ -1,6 +1,7 @@
 "use strict";
 
 var showRule = false;
+var answer = "";
 
 function getRandomInRange(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -16,12 +17,16 @@ function showAnswerPlace() {
     document.getElementById("button_show_answer").style.visibility = "hidden";
 }
 
+function speak() {
+    if ('speechSynthesis' in window) window.speechSynthesis.speak(new SpeechSynthesisUtterance(answer));
+}
+
+
 function getExercise() {
     var time_item;
     var verb_item = verbs[getRandomInRange(0,verbs.length-1)];
     var pronoun_item = pronouns[getRandomInRange(0,pronouns.length-1)];
     var isQuestion = false;
-    var answer = "";
     switch (getRandomInRange(0,2)) {
         case 0: {
             switch (getRandomInRange(0,2)) {
@@ -143,7 +148,7 @@ function getExercise() {
 
     answer = answer[0].toUpperCase() + answer.substring(1);
     document.getElementById("place_answer").style.visibility = "hidden";
-    document.getElementById("place_answer").innerHTML = '<div class="alert alert-info" role="alert">'+answer+'</div>';
+    document.getElementById("place_answer").innerHTML = '<div class="alert alert-info" role="alert">'+answer+' <input type="button" class="btn btn-info" value="Озвучить" onclick="speak()"/></div>';
 
     document.getElementById("button_show_rule").style.visibility = "visible";
     document.getElementById("button_show_answer").style.visibility = "visible";
