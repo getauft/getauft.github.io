@@ -47,47 +47,50 @@
 
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="/">getauft.github.io</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/pastsimple.html">Past Simple</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/verbs.html">Verbs</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/pronouns.html">Pronouns</a>
-                </li>
-            </ul>
-        </div>
+        <span class="navbar-brand">getauft.github.io</span>
     </nav>
 </header>
 
 <main role="main" class="container">
-    <div class="row">
-        <div class="col-md mt-5">
-            <ul class="list-unstyled">
-                <li>&#10144; <a href="/pastsimple.html">Past simple</a> — простой генератор «заданий» на запоминание правил построения предложений в Past Simple основанный на <a href="https://www.youtube.com/playlist?list=PLoU6OXYTp-18JD4-yo3SzvKl2zRXkd-1w" target="_blank">уроках Петрова</a>.</li>
-                <li>&#10144; <a href="/verbs.html">Verbs</a> — топ-100 английских глаголов</li>
-                <li>&#10144; <a href="/pronouns.html">Pronouns</a> — список местоимений, наречий и обстоятельств</li>
-            </ul>
+    <div class="row" id="place_time">
+        <div class="col-sm mb-3">
+            <p class="h1" id="place_time_about_type"></p>
+            <p class="h3 text-muted" id="place_time_about_time"></p>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md">
+            <small class="text-muted">Основное</small>
+            </hr>
+        </div>
+    </div>
+    <div class="row" id="place_pronoun">
+        <div class="col-sm mb-1">
+            <span><strong>Местоимение: </strong></span>
+            <span id="place_pronoun_subject"></span>
+        </div>
+    </div>
+    <div class="row" id="place_verb">
+        <div class="col-sm mb-1">
+            <span><strong>Глагол: </strong></span>
+            <span id="place_verb_base_form"></span>
+            (<span id="place_verb_past_participle" class="text-muted"></span>)
+            — <span id="place_verb_translate" class="text-muted"></span>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-sm"  id="place_rule">
 
+        </div>
+    </div>
 </main>
 
-<!--footer class="footer">
+<footer class="footer">
     <div class="container">
-
+        <button type="button" class="btn btn-success" onclick="getExercise()">Задание</button>
+        <button id="button_show_rule" type="button" class="btn btn-warning" onclick="showRulePlace()">Правило</button>
     </div>
-</footer!-->
+</footer>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -98,5 +101,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+<script src="./js/data.js" type="application/javascript"></script>
+<script src="./js/index.js" type="application/javascript"></script>
 </body>
 </html>

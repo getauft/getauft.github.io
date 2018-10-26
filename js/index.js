@@ -15,13 +15,6 @@ function getExercise() {
     var time_item;
     var verb_item = verbs[getRandomInRange(0,verbs.length-1)];
     var pronoun_item = pronouns[getRandomInRange(0,pronouns.length-1)];
-    var second_pronoun_item = pronouns[getRandomInRange(0,pronouns.length-1)];
-    if (pronoun_item.object_pronoun === second_pronoun_item.object_pronoun) {
-        second_pronoun_item = pronouns[getRandomInRange(0,pronouns.length-1)];
-    };
-    var interrogative_item = interrogative[getRandomInRange(0,interrogative.length-1)];
-    var parameter_item = parameters[getRandomInRange(0,parameters.length-1)];
-    var prepositions_item = prepositions[getRandomInRange(0,prepositions.length-1)];
     var isQuestion = false;
     switch (getRandomInRange(0,2)) {
         case 0: {
@@ -84,7 +77,6 @@ function getExercise() {
     document.getElementById("place_time_about_time").innerText = time_item.about_time;
 
     document.getElementById("place_pronoun_subject").innerText = pronoun_item.subject_pronoun;
-//    document.getElementById("place_pronoun_object").innerText = second_pronoun_item.object_pronoun;
 
     if(verb_item.base_form === "be") {
         document.getElementById("place_verb_base_form").innerHTML = '<span class="text-danger font-weight-bold">'+verb_item.base_form+'</span>';
@@ -94,22 +86,6 @@ function getExercise() {
     document.getElementById("place_verb_past_participle").innerText = verb_item.past_participle;
     document.getElementById("place_verb_translate").innerText = verb_item.translate;
 
-/*
-    document.getElementById("place_parameter_pronoun").innerText = parameter_item.pronoun;
-    document.getElementById("place_parameter_scope_of_use").innerText = parameter_item.scope_of_use;
-    document.getElementById("place_parameter_translate").innerText = parameter_item.translate;
-
-    document.getElementById("place_preposition_pretext").innerText = prepositions_item.pretext;
-    document.getElementById("place_preposition_translate").innerText = prepositions_item.translate;
-
-    if (!isQuestion){
-        document.getElementById("place_interrogative").style.display = "none";
-    } else {
-        document.getElementById("place_interrogative").style.display = "flex";
-        document.getElementById("place_interrogative_word").innerText = interrogative_item.word;
-        document.getElementById("place_interrogative_translate").innerText = interrogative_item.translate;
-    }
-*/
     if(verb_item.base_form === "be"){
         document.getElementById("place_rule").innerHTML = '<div class="alert alert-danger" role="alert">'+time_item.rule_to_be+'</div>';
     } else {
