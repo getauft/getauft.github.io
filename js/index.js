@@ -162,7 +162,7 @@ function getExercise() {
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.send(body);
     console.log("SENDED");
-    console.log(xhr.response.text[0]);
+    console.log(xhr.responseText);
 
     document.getElementById("place_answer").style.visibility = "hidden";
     document.getElementById("place_answer").innerHTML =
