@@ -73,6 +73,7 @@ function getExercise() {
                         var ending = "s";
                         if(verb_item.base_form[verb_item.base_form.length-1] === "y"){
                             ending = "ies";
+                            answer = pronoun_item.subject_pronoun + " " + verb_item.base_form.substring(0,verb_item.base_form.length-1) + ending +".";
                         }
                         //ss, ch, x, tch, sh, zz
                         if(
@@ -84,8 +85,8 @@ function getExercise() {
                             verb_item.base_form[verb_item.base_form.length-3] + verb_item.base_form[verb_item.base_form.length-2] + verb_item.base_form[verb_item.base_form.length-1] === "tch"
                         ){
                             ending = "es";
+                            answer = pronoun_item.subject_pronoun + " " + verb_item.base_form + ending +".";
                         }
-                        answer = pronoun_item.subject_pronoun + " " + verb_item.base_form.substring(0,verb_item.base_form.length-1) + ending +".";
 
                     } else {
                         answer = pronoun_item.subject_pronoun + " " + verb_item.base_form + ".";
