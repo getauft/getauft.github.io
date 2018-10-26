@@ -60,7 +60,7 @@ function getExercise() {
                     break;
                 case 1: {
                     time_item = times.present.statement;
-                    if (pronoun_item.subject_pronoun !== "he" || pronoun_item.subject_pronoun !== "she"){
+                    if (pronoun_item.subject_pronoun.toString().toUpperCase() !== "he".toString().toUpperCase() || pronoun_item.subject_pronoun.toString().toUpperCase() !== "she".toString().toUpperCase()){
                         console.log(pronoun_item.subject_pronoun);
                         console.log("NOT HE OR SHE");
                         answer = pronoun_item.subject_pronoun + " " + verb_item.base_form + ".";
