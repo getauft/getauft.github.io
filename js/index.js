@@ -63,17 +63,17 @@ function getExercise() {
                     } else {
                         //y
                         var ending = "s";
-                        if(verb_item.base_form[verb_item.base_form.length-1]==="y"){
+                        if(verb_item.base_form[verb_item.base_form.length-1] == "y"){
                             ending = "ies";
                             verb_item.base_form = verb_item.base_form.substring(0,length-1);
                         }
                         //ss, ch, x, tch, sh, zz
                         if(
-                            verb_item.base_form[verb_item.base_form.length-2] + verb_item.base_form[verb_item.base_form.length-1] === "ss" ||
-                            verb_item.base_form[verb_item.base_form.length-2] + verb_item.base_form[verb_item.base_form.length-1] === "ch" ||
-                            verb_item.base_form[verb_item.base_form.length-2] + verb_item.base_form[verb_item.base_form.length-1] === "sh" ||
-                            verb_item.base_form[verb_item.base_form.length-2] + verb_item.base_form[verb_item.base_form.length-1] === "zz" ||
-                            verb_item.base_form[verb_item.base_form.length-1] === "x" ||
+                            verb_item.base_form[verb_item.base_form.length-2] + verb_item.base_form[verb_item.base_form.length-1] == "ss" ||
+                            verb_item.base_form[verb_item.base_form.length-2] + verb_item.base_form[verb_item.base_form.length-1] == "ch" ||
+                            verb_item.base_form[verb_item.base_form.length-2] + verb_item.base_form[verb_item.base_form.length-1] == "sh" ||
+                            verb_item.base_form[verb_item.base_form.length-2] + verb_item.base_form[verb_item.base_form.length-1] == "zz" ||
+                            verb_item.base_form[verb_item.base_form.length-1] == "x" ||
                             verb_item.base_form[verb_item.base_form.length-3] + verb_item.base_form[verb_item.base_form.length-2] + verb_item.base_form[verb_item.base_form.length-1] === "tch"
                         ){
                             ending = "es";
