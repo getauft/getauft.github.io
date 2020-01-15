@@ -1,0 +1,54 @@
+body {
+	font-family: 'Ubuntu', sans-serif;
+}
+
+.masthead {
+	text-align: center;
+	color: #fff;
+	background: linear-gradient(180deg, rgba(29, 224, 153, 0.6), rgba(29, 200, 205, 0.6)), url('../img/hero.jpeg');
+	background-repeat: no-repeat;
+	background-attachment: scroll;
+	background-position: center center;
+	background-size: 100%;
+	background-size: cover;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+}
+
+.logo {
+	max-width: 300px;
+	min-width: 100vw;
+}
+
+.animation {
+  font-size: 10vh;
+  color: white;
+  opacity: .7;
+  position: absolute;
+  bottom: 0;
+  -webkit-animation: animation 2s linear infinite;
+  animation: animation 2s linear infinite;
+}
+
+@-webkit-keyframes animation {
+  0% { color: rgba(255, 255, 255, 1); }
+  50% { color: rgba(255, 255, 255, .6); }
+  100% { color: rgba(255, 255, 255, 1); }
+}
+@keyframes animation {
+  0% { color: rgba(255, 255, 255, 1); }
+  50% { color: rgba(255, 255, 255, .6); }
+  100% { color: rgba(255, 255, 255, 1); }
+}
+
+.card {
+  height: 100%;
+}
+
+.bicon{
+  font-size: 50px;
+  color: rgba(29, 224, 153, 0.8);
+}
