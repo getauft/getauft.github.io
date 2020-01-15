@@ -1,5 +1,6 @@
 body {
 	font-family: 'Ubuntu', sans-serif;
+	position: relative;
 }
 
 .masthead {
@@ -18,9 +19,9 @@ body {
 	height: 100vh;
 }
 
-.logo {
+.logo img{
 	max-width: 300px;
-	min-width: 100vw;
+	width: 100%;
 }
 
 .animation {
@@ -51,4 +52,18 @@ body {
 .bicon{
   font-size: 50px;
   color: rgba(29, 224, 153, 0.8);
+}
+
+.navbar {
+	background-color: rgba(29, 224, 153, 1);
+	color: white;
+	font-weight: bold;
+}
+
+.nav-links{
+	color: rgba(255,255,255,1);
+}
+
+.footer {
+	background-color: rgba(29, 224, 153, 0.8);
 }
