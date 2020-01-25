@@ -103,3 +103,17 @@ footer .list-inline {
 	margin: 10px 0;
 	padding: 0;
 }
+
+.bgi_01 {
+	background-color: rgba(62, 182, 80, 0.1);
+	background: transparent;
+	background: linear-gradient(0deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('../img/bgi_01.jpg')
+ 0 0 no-repeat fixed;
+}
+
+.bgi_02 {
+	background-color: rgba(62, 182, 80, 0.1);
+	background: transparent;
+	background: linear-gradient(0deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('../img/bgi_02.jpg')
+ 0 0 no-repeat fixed;
+}
