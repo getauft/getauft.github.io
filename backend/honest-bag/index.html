@@ -43,7 +43,6 @@
 	</nav>
 	<header class="masthead"  id="top">
 		<div class="container-fluid">
-
 			<div class="row no-gutters">
 				<div class="col-md">
 					<div class="logo">
@@ -51,9 +50,12 @@
 				</div>
 			</div>
 		</div>
-		<div class='row text-center mt-5 no-gutters mb-3'>
+		<div class='row text-center no-gutters'>
 			<div class='col-md'>
-				<p class='h3'>
+				<p class='h1 d-none d-md-block mt-5 mb-5'>
+					Заказывайте сегодня в Волжском:<br>пакеты оптом, пластиковую тару,<br>одноразовую посуду, хозтовары
+				</p>
+				<p class='h4 d-block d-sm-none mt-3 mb-5'>
 					Оптовая продажа пакетов, пластиковой посуды и хозтоваров в Волжском
 				</p>
 			</div>
@@ -399,6 +401,8 @@
 			})
 
 			$("iframe").height($("#carouselExampleIndicators").height());
+
+			$(".logo").css('margin-top', $("#navbar").height() + ($(window).height()*0.2));
 		});
 	</script>
 </body>
