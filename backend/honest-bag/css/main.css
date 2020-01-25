@@ -104,16 +104,36 @@ footer .list-inline {
 	padding: 0;
 }
 
-.bgi_01 {
+main .container-fluid-margins {
+	min-height: 50vh;
+}
+
+main .container-fluid-margins .container {
+	margin-top: 72px;
+	margin-bottom: 32px;
+}
+
+.container-bg-1 {
 	background-color: rgba(62, 182, 80, 0.1);
 	background: transparent;
 	background: linear-gradient(0deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('../img/bgi_01.jpg')
  0 0 no-repeat fixed;
 }
 
-.bgi_02 {
+.container-bg-2 {
 	background-color: rgba(62, 182, 80, 0.1);
 	background: transparent;
 	background: linear-gradient(0deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('../img/bgi_02.jpg')
  0 0 no-repeat fixed;
+}
+
+#bodyGoods .col-md-3:before {
+
+	content: "∘";
+	color: #bd2130;
+}
+
+iframe {
+	height: 100%;
+	width: 100%;
 }
