@@ -84,19 +84,19 @@
             -webkit-appearance: none;
             width: 100%;
             background: transparent;
-            height: 48px; /* touch target size */
+            height: 32px; /* Уменьшена высота для компактности */
             margin: 0;
             display: flex;
             align-items: center;
         }
         input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none;
-            height: 20px;
-            width: 20px;
+            height: 18px; /* Чуть меньше для эстетики */
+            width: 18px;
             border-radius: 50%;
             background: #6DD58C; /* primary */
             cursor: pointer;
-            margin-top: -8px;
+            margin-top: -7px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.4);
         }
         input[type=range]::-webkit-slider-runnable-track {
@@ -146,6 +146,15 @@
         .progress-bar {
             transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        
+        /* Скрытие полосы прокрутки для зафиксированной колонки */
+        .hide-scroll::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scroll {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 </head>
 <body class="bg-md-bg text-md-text text-[15px]">
@@ -154,7 +163,7 @@
     <div class="hidden bg-md-error bg-red-500 bg-yellow-500 bg-blue-400 bg-orange-400 bg-red-400 bg-stone-300 bg-emerald-400 bg-amber-400 bg-amber-600 bg-pink-400 text-md-error text-amber-400 text-md-primary"></div>
 
     <!-- Main Content -->
-    <main class="p-4 mx-auto max-w-7xl md:grid md:grid-cols-2 md:gap-6">
+    <main class="p-4 mx-auto max-w-7xl md:grid md:grid-cols-2 md:gap-6 md:items-start">
         
         <!-- Левая колонка: Настройки -->
         <div class="space-y-4">
@@ -168,17 +177,17 @@
 
         <!-- Base Settings Card -->
         <section class="bg-md-surface rounded-[24px] p-5 shadow-elevation-1">
-            <div class="flex items-center gap-2 mb-4">
+            <div class="flex items-center gap-2 mb-3">
                 <span class="material-symbols-rounded text-md-primary">water_drop</span>
                 <h2 class="text-lg font-medium text-md-text">Параметры раствора</h2>
             </div>
-            <div class="flex justify-between items-center mb-1">
+            <div class="flex justify-between items-center mb-0.5">
                 <label class="text-sm text-md-textVariant">Дозировка (мл на 1 л)</label>
                 <span id="dose-val" class="font-medium text-md-primary text-lg">10.0 мл</span>
             </div>
             <input type="range" id="dose" min="2" max="25" step="0.5" value="10" oninput="updateCalculator()">
             
-            <div class="flex justify-between items-center mb-1 mt-5">
+            <div class="flex justify-between items-center mb-0.5 mt-3">
                 <label class="text-sm text-md-textVariant">Объем баков А и Б (л)</label>
                 <span id="tank-vol-val" class="font-medium text-md-primary text-lg">1.5 л</span>
             </div>
@@ -218,7 +227,7 @@
         </div> <!-- Конец левой колонки -->
 
         <!-- Правая колонка: Результаты -->
-        <div class="space-y-4">
+        <div class="space-y-4 md:sticky md:top-4 md:h-[calc(100vh-2rem)] overflow-y-auto hide-scroll pb-4">
 
         <!-- Analysis Card -->
         <section class="bg-md-surface rounded-[24px] p-5 shadow-elevation-1">
@@ -311,10 +320,10 @@
             
             Object.values(FERTILIZERS).forEach(fert => {
                 const html = `
-                    <div class="py-2">
-                        <div class="flex justify-between items-center mb-1">
+                    <div class="py-1">
+                        <div class="flex justify-between items-center mb-0.5">
                             <label class="text-sm font-medium text-md-text" for="range-${fert.id}">${fert.name}</label>
-                            <div class="flex items-center bg-md-bg rounded-lg px-2 py-1 border border-md-outlineVariant focus-within:border-md-primary transition-colors">
+                            <div class="flex items-center bg-md-bg rounded-lg px-2 py-0.5 border border-md-outlineVariant focus-within:border-md-primary transition-colors">
                                 <input type="number" id="num-${fert.id}" value="${currentValues[fert.id]}" min="0" max="300" step="0.1" 
                                     class="w-14 bg-transparent text-right text-md-text font-mono outline-none text-sm"
                                     oninput="syncInput('${fert.id}', this.value)">
