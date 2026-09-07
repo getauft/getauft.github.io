@@ -294,11 +294,10 @@
     <script>
         // Fertilizer composition databases (percentages)
         const FERTILIZERS = {
-            aqApple: { id: 'aqApple', name: 'Акварин Яблони', n: 12, p: 5.23, k: 29.05, mg: 0.60, s: 0.70, ca: 0, fe: 0.054, b: 0.02, group: 'A' },
-            aqConifer: { id: 'aqConifer', name: 'Акварин Хвойные', n: 3, p: 4.80, k: 29.05, mg: 2.41, s: 9.00, ca: 0, fe: 0.054, b: 0.02, group: 'A' },
             kno3: { id: 'kno3', name: 'Калиевая селитра', n: 13.5, p: 0, k: 38.18, mg: 0, s: 0, ca: 0, fe: 0, b: 0, group: 'A' },
             kh2po4: { id: 'kh2po4', name: 'Монофосфат калия', n: 0, p: 22.69, k: 28.22, mg: 0, s: 0, ca: 0, fe: 0, b: 0, group: 'A' },
             mgso4: { id: 'mgso4', name: 'Сульфат магния', n: 0, p: 0, k: 0, mg: 9.86, s: 13.01, ca: 0, fe: 0, b: 0, group: 'A' },
+            k2so4: { id: 'k2so4', name: 'Сульфат калия', n: 0, p: 0, k: 41.5, mg: 0, s: 18.0, ca: 0, fe: 0, b: 0, group: 'A' },
             cano3: { id: 'cano3', name: 'Кальциевая селитра', n: 11.86, p: 0, k: 0, mg: 0, s: 0, ca: 16.97, fe: 0, b: 0, group: 'B' },
             mgno3: { id: 'mgno3', name: 'Магниевая селитра', n: 11.0, p: 0, k: 0, mg: 9.5, s: 0, ca: 0, fe: 0, b: 0, group: 'B' },
             aquamixM: { id: 'aquamixM', name: 'Аквамикс М', n: 0, p: 0, k: 0, mg: 0, s: 0, ca: 0, fe: 6.0, b: 0.85, group: 'B' }
@@ -308,15 +307,15 @@
         const STAGES = {
             veg: {
                 targets: { n: 160, p: 45, k: 180, ca: 140, mg: 45, s: 50, fe: 2.0, b: 0.3 },
-                defaults: { aqApple: 68.7, aqConifer: 0, kno3: 7.9, kh2po4: 13.9, mgso4: 20.0, cano3: 115.0, mgno3: 40.0, aquamixM: 5.0 }
+                defaults: { kno3: 48.5, kh2po4: 29.8, mgso4: 58.1, k2so4: 0, cano3: 124.7, mgno3: 11.4, aquamixM: 5.0 }
             },
             bloom: {
                 targets: { n: 120, p: 50, k: 240, ca: 150, mg: 50, s: 60, fe: 2.0, b: 0.3 },
-                defaults: { aqApple: 0, aqConifer: 80.5, kno3: 5.0, kh2po4: 20.5, mgso4: 15.0, cano3: 120.0, mgno3: 40.0, aquamixM: 5.0 }
+                defaults: { kno3: 15.0, kh2po4: 33.0, mgso4: 30.0, k2so4: 45.0, cano3: 132.6, mgno3: 21.0, aquamixM: 5.0 }
             },
             fruit: {
                 targets: { n: 105, p: 55, k: 310, ca: 170, mg: 55, s: 70, fe: 2.0, b: 0.3 },
-                defaults: { aqApple: 0, aqConifer: 141.7, kno3: 0, kh2po4: 13.9, mgso4: 15.0, cano3: 140.0, mgno3: 40.0, aquamixM: 5.0 }
+                defaults: { kno3: 0, kh2po4: 36.3, mgso4: 45.0, k2so4: 85.0, cano3: 150.0, mgno3: 11.0, aquamixM: 5.0 }
             }
         };
 
