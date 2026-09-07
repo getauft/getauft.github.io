@@ -30,6 +30,15 @@
     <script>
         window.tailwind = window.tailwind || {};
         window.tailwind.config = {
+            safelist: [
+                'bg-md-error', 'bg-amber-400', 'bg-blue-400', 'bg-orange-400', 'bg-red-400', 
+                'bg-stone-300', 'bg-emerald-400', 'bg-amber-600', 'bg-pink-400',
+                'bg-yellow-500', 'shadow-yellow-500/30', 'text-black',
+                'bg-red-500', 'shadow-red-500/30',
+                'bg-md-errorContainer', 'text-md-onErrorContainer', 'text-md-error',
+                'bg-amber-900/30', 'text-amber-200',
+                'bg-md-primaryContainer', 'text-md-onPrimaryContainer', 'text-md-primary'
+            ],
             theme: {
                 extend: {
                     fontFamily: {
@@ -141,17 +150,20 @@
 </head>
 <body class="bg-md-bg text-md-text text-[15px]">
 
+    <!-- Физический Safelist для Tailwind CDN (гарантирует компиляцию динамических цветов) -->
+    <div class="hidden bg-md-error bg-red-500 bg-yellow-500 bg-blue-400 bg-orange-400 bg-red-400 bg-stone-300 bg-emerald-400 bg-amber-400 bg-amber-600 bg-pink-400 text-md-error text-amber-400 text-md-primary"></div>
+
     <!-- Main Content -->
-    <main class="p-4 mx-auto max-w-7xl md:grid md:grid-cols-2 md:gap-6 md:h-screen md:overflow-hidden">
+    <main class="p-4 mx-auto max-w-7xl md:grid md:grid-cols-2 md:gap-6">
         
-        <!-- Левая колонка: Настройки (прокручиваемая на планшете) -->
-        <div class="space-y-4 md:overflow-y-auto md:h-full md:pr-2 pb-6 md:pb-24">
+        <!-- Левая колонка: Настройки -->
+        <div class="space-y-4">
             
             <!-- Переключатель этапов -->
-            <div class="bg-md-surface rounded-[24px] p-2 flex gap-2 shadow-elevation-1 mb-4">
-                <button id="tab-veg" class="stage-tab flex-1 py-3 rounded-[18px] bg-md-primaryContainer text-md-onPrimaryContainer font-medium text-sm transition-all" onclick="setStage('veg')">Вегетация</button>
-                <button id="tab-bloom" class="stage-tab flex-1 py-3 rounded-[18px] text-md-textVariant hover:bg-md-surfaceVariant font-medium text-sm transition-all" onclick="setStage('bloom')">Цветение</button>
-                <button id="tab-fruit" class="stage-tab flex-1 py-3 rounded-[18px] text-md-textVariant hover:bg-md-surfaceVariant font-medium text-sm transition-all" onclick="setStage('fruit')">Плоды</button>
+            <div class="flex gap-2 mb-4">
+                <button id="tab-veg" class="stage-tab flex-1 py-3 rounded-xl font-semibold text-sm transition-all bg-green-500 text-white shadow-lg shadow-green-500/30" onclick="setStage('veg')">Вегетация</button>
+                <button id="tab-bloom" class="stage-tab flex-1 py-3 rounded-xl font-semibold text-sm transition-all bg-yellow-500/20 text-yellow-400" onclick="setStage('bloom')">Цветение</button>
+                <button id="tab-fruit" class="stage-tab flex-1 py-3 rounded-xl font-semibold text-sm transition-all bg-red-500/20 text-red-400" onclick="setStage('fruit')">Плоды</button>
             </div>
 
         <!-- Base Settings Card -->
@@ -200,8 +212,8 @@
 
         </div> <!-- Конец левой колонки -->
 
-        <!-- Правая колонка: Результаты (прокручиваемая на планшете) -->
-        <div class="space-y-4 md:overflow-y-auto md:h-full md:pl-2 pb-6 md:pb-24">
+        <!-- Правая колонка: Результаты -->
+        <div class="space-y-4">
 
         <!-- Analysis Card -->
         <section class="bg-md-surface rounded-[24px] p-5 shadow-elevation-1">
@@ -319,15 +331,25 @@
             currentStage = stageId;
             currentValues = { ...STAGES[stageId].defaults };
             
-            // Tabs Update
-            document.querySelectorAll('.stage-tab').forEach(el => {
-                el.classList.remove('bg-md-primaryContainer', 'text-md-onPrimaryContainer');
-                el.classList.add('text-md-textVariant');
+            // Стили кнопок для активного и неактивного состояний
+            const styles = {
+                veg: { active: 'bg-green-500 text-white shadow-lg shadow-green-500/30', inactive: 'bg-green-500/20 text-green-400 shadow-none' },
+                bloom: { active: 'bg-yellow-500 text-black shadow-lg shadow-yellow-500/30', inactive: 'bg-yellow-500/20 text-yellow-400 shadow-none' },
+                fruit: { active: 'bg-red-500 text-white shadow-lg shadow-red-500/30', inactive: 'bg-red-500/20 text-red-400 shadow-none' }
+            };
+
+            // Сбрасываем стили всех кнопок до неактивных
+            ['veg', 'bloom', 'fruit'].forEach(id => {
+                const el = document.getElementById(`tab-${id}`);
+                if (el) {
+                    el.className = `stage-tab flex-1 py-3 rounded-xl font-semibold text-sm transition-all ${styles[id].inactive}`;
+                }
             });
+
+            // Применяем активные стили к выбранной кнопке
             const activeTab = document.getElementById(`tab-${stageId}`);
             if (activeTab) {
-                activeTab.classList.remove('text-md-textVariant');
-                activeTab.classList.add('bg-md-primaryContainer', 'text-md-onPrimaryContainer');
+                activeTab.className = `stage-tab flex-1 py-3 rounded-xl font-semibold text-sm transition-all ${styles[stageId].active}`;
             }
             
             // Reset Dose
@@ -385,8 +407,8 @@
                 const diffRatio = act / tgt;
                 
                 // Color Logic
-                const barColor = (diffRatio < 0.75 || diffRatio > 1.25) ? 'bg-md-error' : 
-                                 (diffRatio < 0.9 || diffRatio > 1.1) ? 'bg-amber-400' : el.color;
+                const barColor = (diffRatio < 0.75 || diffRatio > 1.25) ? 'bg-red-500' : 
+                                 (diffRatio < 0.9 || diffRatio > 1.1) ? 'bg-yellow-500' : el.color;
 
                 const percent = Math.min((act / el.max) * 100, 100);
                 const targetPercent = (tgt / el.max) * 100;
