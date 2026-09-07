@@ -303,19 +303,19 @@
             aquamixM: { id: 'aquamixM', name: 'Аквамикс М', n: 0, p: 0, k: 0, mg: 0, s: 0, ca: 0, fe: 6.0, b: 0.85, group: 'B' }
         };
 
-        // Stages logic and target values (including Fe and B)
+        // Stages logic and target values (chemically balanced)
         const STAGES = {
             veg: {
-                targets: { n: 160, p: 45, k: 180, ca: 140, mg: 45, s: 50, fe: 2.0, b: 0.3 },
-                defaults: { kno3: 48.5, kh2po4: 29.8, mgso4: 58.1, k2so4: 0, cano3: 124.7, mgno3: 11.4, aquamixM: 5.0 }
+                targets: { n: 155, p: 45, k: 180, ca: 140, mg: 45, s: 50, fe: 2.0, b: 0.3 },
+                defaults: { kno3: 45.0, kh2po4: 29.8, mgso4: 58.1, k2so4: 0, cano3: 124.7, mgno3: 12.0, aquamixM: 5.0 }
             },
             bloom: {
-                targets: { n: 120, p: 50, k: 240, ca: 150, mg: 50, s: 60, fe: 2.0, b: 0.3 },
-                defaults: { kno3: 15.0, kh2po4: 33.0, mgso4: 30.0, k2so4: 45.0, cano3: 132.6, mgno3: 21.0, aquamixM: 5.0 }
+                targets: { n: 135, p: 50, k: 240, ca: 150, mg: 50, s: 105, fe: 2.0, b: 0.3 },
+                defaults: { kno3: 12.0, kh2po4: 33.1, mgso4: 50.0, k2so4: 53.2, cano3: 132.6, mgno3: 27.0, aquamixM: 5.0 }
             },
             fruit: {
-                targets: { n: 105, p: 55, k: 310, ca: 170, mg: 55, s: 70, fe: 2.0, b: 0.3 },
-                defaults: { kno3: 0, kh2po4: 36.3, mgso4: 45.0, k2so4: 85.0, cano3: 150.0, mgno3: 11.0, aquamixM: 5.0 }
+                targets: { n: 160, p: 55, k: 300, ca: 170, mg: 55, s: 120, fe: 2.0, b: 0.3 },
+                defaults: { kno3: 25.0, kh2po4: 36.4, mgso4: 55.0, k2so4: 60.0, cano3: 150.3, mgno3: 30.0, aquamixM: 5.0 }
             }
         };
 
@@ -561,12 +561,12 @@
 
             const addWarn = (icon, title, msg, type) => {
                 issues++;
-                const bg = type === 'error' ? 'bg-md-errorContainer text-md-onErrorContainer' : 
-                           type === 'warn' ? 'bg-amber-900/30 text-amber-200' : 
-                           'bg-md-primaryContainer text-md-onPrimaryContainer';
-                const iconColor = type === 'error' ? 'text-md-error' : 
-                                  type === 'warn' ? 'text-amber-400' : 
-                                  'text-md-primary';
+                const bg = type === 'error' ? 'bg-red-500/20 border border-red-500/50 text-red-200' : 
+                           type === 'warn' ? 'bg-yellow-500/20 border border-yellow-500/50 text-yellow-200' : 
+                           'bg-green-500/20 border border-green-500/50 text-green-200';
+                const iconColor = type === 'error' ? 'text-red-400' : 
+                                  type === 'warn' ? 'text-yellow-400' : 
+                                  'text-green-400';
                 
                 container.insertAdjacentHTML('beforeend', `
                     <div class="p-3 rounded-xl flex gap-3 items-start ${bg}">
@@ -579,21 +579,27 @@
                 `);
             };
 
-            // Checking Sulfur
-            if (results.s > 120) addWarn('warning', 'Критический избыток серы', 'Риск осмотического стресса и сброса цветков. Снизьте сульфат магния.', 'error');
-            else if (results.s > 80) addWarn('info', 'Повышенная сера', 'Сульфаты накапливаются в растворе, следите за EC.', 'warn');
+            // Checking Sulfur (adjusted for real chemistry)
+            if (results.s > 150) addWarn('warning', 'Критический избыток серы', 'Риск жесточайшего осмотического стресса и сброса цветков. Снизьте сульфаты.', 'error');
+            else if (results.s > 125) addWarn('info', 'Повышенная сера', 'Сульфаты накапливаются в растворе. Держите этот показатель ниже 120 ppm.', 'warn');
 
             // Checking K/Ca Antagonism
             const kCaRatio = results.ca > 0 ? results.k / results.ca : 999;
-            if (currentStage !== 'veg' && kCaRatio > 2.0) {
-                addWarn('block', 'Антагонизм K/Ca', `Соотношение Калий/Кальций ${kCaRatio.toFixed(1)}:1 (оптимум < 1.8). Избыток калия блокирует усвоение кальция.`, 'error');
-            } else if (results.ca < 120) {
-                addWarn('egg_alt', 'Дефицит кальция', 'Кальций необходим для удержания завязей. Увеличьте Раствор Б.', 'error');
+            if (currentStage !== 'veg' && kCaRatio > 2.2) {
+                addWarn('block', 'Антагонизм K/Ca', `Соотношение K/Ca = ${kCaRatio.toFixed(1)}:1. Избыток калия заблокирует усвоение кальция. Возможна вершинная гниль.`, 'error');
+            } else if (results.ca < 130) {
+                addWarn('egg_alt', 'Дефицит кальция', 'Кальций критически необходим для удержания завязей. Увеличьте кальциевую селитру.', 'error');
+            }
+            
+            // Checking Generative K/N Ratio (NEW)
+            const kNratio = results.n > 0 ? results.k / results.n : 0;
+            if (currentStage === 'fruit' && kNratio < 1.6) {
+                addWarn('grass', 'Опасность жирования', `Отношение Калий/Азот слишком низкое (${kNratio.toFixed(1)}). Растение может уйти в вегетацию. Поднимите сульфат калия.`, 'warn');
             }
 
-            // Checking Microelements (New feature)
-            if (results.fe < 1.0) addWarn('iron', 'Дефицит железа', 'Низкий уровень Fe. Увеличьте дозировку Аквамикс М.', 'warn');
-            if (results.b < 0.15) addWarn('grass', 'Дефицит бора', 'Бор критически важен для прорастания пыльцы.', 'warn');
+            // Checking Microelements
+            if (results.fe < 1.5) addWarn('iron', 'Дефицит железа', 'Низкий уровень Fe. Возможен хлороз. Увеличьте Аквамикс М.', 'warn');
+            if (results.b < 0.2) addWarn('hive', 'Дефицит бора', 'Бор важен для прорастания пыльцы. Риск неопыления.', 'warn');
 
             // Total Salts EC & TDS
             const estimatedEC = (totalWeight * dose) / (tankVol * 1000);
