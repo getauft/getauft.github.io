@@ -26,7 +26,6 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="manifest" href="manifest.json" />
     
     <script>
         window.tailwind = window.tailwind || {};
@@ -178,7 +177,12 @@
                 <span id="dose-val" class="font-medium text-md-primary text-lg">10.0 мл</span>
             </div>
             <input type="range" id="dose" min="2" max="25" step="0.5" value="10" oninput="updateCalculator()">
-            <p class="text-xs text-md-textVariant mt-2">Объем баков А и Б: 1.5 литра</p>
+            
+            <div class="flex justify-between items-center mb-1 mt-5">
+                <label class="text-sm text-md-textVariant">Объем баков А и Б (л)</label>
+                <span id="tank-vol-val" class="font-medium text-md-primary text-lg">1.5 л</span>
+            </div>
+            <input type="range" id="tank-vol" min="0.5" max="20" step="0.5" value="1.5" oninput="updateCalculator()">
         </section>
 
         <!-- Solution A Card -->
@@ -237,7 +241,7 @@
             
             <div class="flex gap-2 mb-4">
                 <div class="flex-1 bg-md-surfaceVariant rounded-xl p-2 text-center">
-                    <div class="text-[10px] sm:text-xs text-md-textVariant mb-1">EC</div>
+                    <div class="text-[10px] sm:text-xs text-md-textVariant mb-1">Расчетный EC</div>
                     <div class="text-lg sm:text-xl font-bold" id="calc-ec">0.00</div>
                 </div>
                 <div class="flex-1 bg-md-surfaceVariant rounded-xl p-2 text-center">
@@ -377,10 +381,15 @@
             const dose = parseFloat(document.getElementById('dose').value) || 0;
             document.getElementById('dose-val').innerText = `${dose.toFixed(1)} мл`;
             
+            const tankVol = parseFloat(document.getElementById('tank-vol').value) || 1.5;
+            document.getElementById('tank-vol-val').innerText = `${tankVol.toFixed(1)} л`;
+            
+            const tankVolFactor = tankVol * 100;
+
             const results = { n: 0, p: 0, k: 0, ca: 0, mg: 0, s: 0, fe: 0, b: 0 };
             let totalWeight = 0;
 
-            // ppm = Weight(g) * Dose(ml) * Percent(%) / 150
+            // Универсальная формула: ppm = Вес(г) * Доза(мл) * Процент(%) * 10 / ОбъемБака(мл)
             Object.keys(currentValues).forEach(fertId => {
                 const weight = currentValues[fertId];
                 totalWeight += weight;
@@ -388,13 +397,13 @@
                 
                 Object.keys(results).forEach(elem => {
                     if (fertData[elem] !== undefined && fertData[elem] > 0) {
-                        results[elem] += (weight * dose * fertData[elem]) / 150;
+                        results[elem] += (weight * dose * fertData[elem]) / tankVolFactor;
                     }
                 });
             });
 
             renderResults(results);
-            runDiagnostics(results, totalWeight, dose);
+            runDiagnostics(results, totalWeight, dose, tankVol);
         }
 
         function renderResults(actuals) {
@@ -436,7 +445,7 @@
             });
         }
 
-        function runDiagnostics(results, totalWeight, dose) {
+        function runDiagnostics(results, totalWeight, dose, tankVol) {
             const container = document.getElementById('warnings-container');
             container.innerHTML = '';
             let issues = 0;
@@ -478,7 +487,7 @@
             if (results.b < 0.15) addWarn('grass', 'Дефицит бора', 'Бор критически важен для прорастания пыльцы.', 'warn');
 
             // Total Salts EC & TDS
-            const estimatedEC = (totalWeight * dose) / 1500;
+            const estimatedEC = (totalWeight * dose) / (tankVol * 1000);
             const estimatedTDS = estimatedEC * 500;
             
             document.getElementById('calc-ec').innerText = estimatedEC.toFixed(2);
