@@ -2,21 +2,34 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="theme-color" content="#1C1B1F">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>HydroCalc Habanero</title>
     
-    <!-- Material Symbols for authentic Android icons -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <!-- Roboto Font (Standard Android font) -->
+    <!-- Инъекция Web App Manifest из ваших настроек -->
+    <script>
+        const manifestData = {
+            "background_color": "#ffffff",
+            "dir": "ltr",
+            "display": "standalone",
+            "name": "HydroCalc Habanero",
+            "orientation": "any",
+            "scope": "/",
+            "short_name": "HCH",
+            "start_url": "/",
+            "theme_color": "#1C1B1F",
+            "id": "HydroCalc Habanero"
+        };
+        const blob = new Blob([JSON.stringify(manifestData)], {type: 'application/manifest+json'});
+        const manifestURL = URL.createObjectURL(blob);
+        document.write(`<link rel="manifest" href="${manifestURL}">`);
+    </script>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     
-    <script src="https://cdn.tailwindcss.com"></script>
-    
     <script>
-        tailwind.config = {
+        window.tailwind = window.tailwind || {};
+        window.tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
@@ -27,7 +40,7 @@
                             bg: '#141218',
                             surface: '#211F26',
                             surfaceVariant: '#49454F',
-                            primary: '#6DD58C', // Emerald green for agro
+                            primary: '#6DD58C',
                             onPrimary: '#00391C',
                             primaryContainer: '#00522B',
                             onPrimaryContainer: '#89F2A6',
@@ -36,8 +49,7 @@
                             errorContainer: '#93000A',
                             text: '#E6E0E9',
                             textVariant: '#CAC4D0',
-                            outline: '#938F99',
-                            outlineVariant: '#49454F'
+                            outline: '#938F99'
                         }
                     },
                     boxShadow: {
@@ -46,230 +58,231 @@
                     }
                 }
             }
-        }
+        };
     </script>
-    
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
         body {
-            background-color: #141218;
-            color: #E6E0E9;
-            font-family: 'Roboto', sans-serif;
+            background-color: #141218; /* md-bg */
+            color: #E6E0E9; /* md-text */
             -webkit-tap-highlight-color: transparent;
-            overscroll-behavior-y: none;
+            user-select: none;
         }
-
-        /* Material Icons setup */
-        .material-symbols-rounded {
-            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-
-        /* Hide scrollbar for a native app feel */
-        ::-webkit-scrollbar {
-            width: 0px;
-            background: transparent;
-        }
-
-        /* Material 3 Slider */
+        
+        /* Material Design 3 Slider Styling */
         input[type=range] {
             -webkit-appearance: none;
             width: 100%;
             background: transparent;
-            height: 48px; /* Touch target size */
+            height: 48px; /* touch target size */
             margin: 0;
+            display: flex;
+            align-items: center;
         }
-        
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #6DD58C; /* primary */
+            cursor: pointer;
+            margin-top: -8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #49454F; /* surfaceVariant */
+            border-radius: 2px;
+        }
         input[type=range]:focus {
             outline: none;
         }
-
-        input[type=range]::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 16px;
-            cursor: pointer;
-            background: #49454F; /* md-surface-variant */
-            border-radius: 8px;
-        }
-
-        input[type=range]::-webkit-slider-thumb {
-            height: 24px;
-            width: 4px;
-            border-radius: 2px;
-            background: #6DD58C; /* md-primary */
-            cursor: pointer;
-            -webkit-appearance: none;
-            margin-top: -4px;
-            box-shadow: 0 0 0 8px rgba(109, 213, 140, 0.2); /* Ripple effect simulation */
-        }
         
-        /* Number input resets for Android */
-        input[type=number] {
-            -moz-appearance: textfield;
-            background: transparent;
-        }
+        /* Remove number input spinners */
         input[type=number]::-webkit-inner-spin-button, 
         input[type=number]::-webkit-outer-spin-button { 
             -webkit-appearance: none; 
             margin: 0; 
         }
-
-        /* Tab Indicator Animation */
-        .tab-indicator {
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        
+        /* Bottom Nav Transition */
+        .nav-item {
+            transition: all 0.2s ease;
         }
-
-        .progress-bar-fill {
-            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s;
+        .nav-indicator {
+            transition: all 0.2s ease;
+            width: 64px;
+            height: 32px;
+            border-radius: 16px;
+            position: absolute;
+            z-index: 0;
+            opacity: 0;
         }
-
-        /* Bottom Sheet (simulated) */
-        .app-container {
-            height: 100dvh; /* Dynamic viewport height for mobile */
-            display: flex;
-            flex-direction: column;
+        .nav-item.active .nav-indicator {
+            background-color: #00522B; /* primaryContainer */
+            opacity: 1;
+        }
+        .nav-item.active .material-symbols-rounded {
+            color: #89F2A6; /* onPrimaryContainer */
+        }
+        .nav-item.active span.label {
+            font-weight: 500;
+            color: #E6E0E9;
         }
         
-        .main-scroll {
-            flex: 1;
-            overflow-y: auto;
-            padding-bottom: 80px; /* Space for FAB */
+        /* Smooth progress bars */
+        .progress-bar {
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
     </style>
 </head>
-<body>
+<body class="bg-md-bg text-md-text text-[15px]">
 
-    <div class="app-container max-w-md mx-auto bg-md-bg relative overflow-hidden shadow-2xl">
+    <!-- Main Content -->
+    <main class="p-4 mx-auto max-w-7xl md:grid md:grid-cols-2 md:gap-6 md:h-screen md:overflow-hidden">
         
-        <!-- Top App Bar -->
-        <header class="pt-12 pb-4 px-4 bg-md-surface sticky top-0 z-20 shadow-elevation-1">
-            <div class="flex items-center justify-between mb-4">
-                <h1 class="text-xl font-medium tracking-wide">HydroCalc <span class="text-md-primary">Habanero</span></h1>
-                <button class="text-md-textVariant p-2 rounded-full active:bg-white/10 transition-colors">
-                    <span class="material-symbols-rounded">more_vert</span>
-                </button>
-            </div>
-
-            <!-- Material Tabs -->
-            <div class="relative flex w-full border-b border-md-outlineVariant">
-                <button onclick="setStage('veg', 0)" class="flex-1 py-3 text-sm font-medium text-center relative z-10 transition-colors tab-btn text-md-primary">Вега</button>
-                <button onclick="setStage('bloom', 1)" class="flex-1 py-3 text-sm font-medium text-center relative z-10 transition-colors tab-btn text-md-textVariant">Цвет</button>
-                <button onclick="setStage('fruit', 2)" class="flex-1 py-3 text-sm font-medium text-center relative z-10 transition-colors tab-btn text-md-textVariant">Плоды</button>
-                
-                <!-- Tab Indicator -->
-                <div id="tab-indicator" class="absolute bottom-0 left-0 w-1/3 h-[3px] bg-md-primary rounded-t-md tab-indicator" style="transform: translateX(0%);"></div>
-            </div>
-        </header>
-
-        <main class="main-scroll px-4 pt-4 space-y-4">
+        <!-- Левая колонка: Настройки (прокручиваемая на планшете) -->
+        <div class="space-y-4 md:overflow-y-auto md:h-full md:pr-2 pb-6 md:pb-24">
             
-            <!-- Dosage Card -->
-            <div class="bg-md-surface rounded-2xl p-4 shadow-elevation-1">
-                <div class="flex items-center gap-3 mb-2">
-                    <span class="material-symbols-rounded text-md-primary">water_drop</span>
-                    <h2 class="text-base font-medium">Дозировка (мл/л)</h2>
-                    <span id="dose-val" class="ml-auto text-lg font-bold text-md-primary">10.0</span>
-                </div>
-                <input type="range" id="dose" min="2" max="25" step="0.5" value="10" oninput="updateCalculator()">
-                <p class="text-xs text-md-textVariant mt-[-8px]">Для объема маточного раствора 1.5 л</p>
+            <!-- Переключатель этапов -->
+            <div class="bg-md-surface rounded-[24px] p-2 flex gap-2 shadow-elevation-1 mb-4">
+                <button id="tab-veg" class="stage-tab flex-1 py-3 rounded-[18px] bg-md-primaryContainer text-md-onPrimaryContainer font-medium text-sm transition-all" onclick="setStage('veg')">Вегетация</button>
+                <button id="tab-bloom" class="stage-tab flex-1 py-3 rounded-[18px] text-md-textVariant hover:bg-md-surfaceVariant font-medium text-sm transition-all" onclick="setStage('bloom')">Цветение</button>
+                <button id="tab-fruit" class="stage-tab flex-1 py-3 rounded-[18px] text-md-textVariant hover:bg-md-surfaceVariant font-medium text-sm transition-all" onclick="setStage('fruit')">Плоды</button>
             </div>
 
-            <!-- Solution A Card -->
-            <div class="bg-md-surface rounded-2xl p-4 shadow-elevation-1 relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-1 h-full bg-blue-400"></div>
-                <h2 class="text-base font-medium mb-4 flex items-center gap-2">
-                    <span class="material-symbols-rounded text-blue-400 text-xl">science</span>
-                    Раствор А (Макро)
-                </h2>
-                <div id="inputs-a" class="space-y-2">
-                    <!-- Injected via JS -->
+        <!-- Base Settings Card -->
+        <section class="bg-md-surface rounded-[24px] p-5 shadow-elevation-1">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="material-symbols-rounded text-md-primary">water_drop</span>
+                <h2 class="text-lg font-medium text-md-text">Параметры раствора</h2>
+            </div>
+            <div class="flex justify-between items-center mb-1">
+                <label class="text-sm text-md-textVariant">Дозировка (мл на 1 л)</label>
+                <span id="dose-val" class="font-medium text-md-primary text-lg">10.0 мл</span>
+            </div>
+            <input type="range" id="dose" min="2" max="25" step="0.5" value="10" oninput="updateCalculator()">
+            <p class="text-xs text-md-textVariant mt-2">Объем баков А и Б: 1.5 литра</p>
+        </section>
+
+        <!-- Solution A Card -->
+        <section class="bg-md-surface rounded-[24px] p-5 shadow-elevation-1 relative overflow-hidden">
+            <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-blue-500"></div>
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-rounded text-blue-400">vaccines</span>
+                    <h2 class="text-lg font-medium text-md-text">Раствор А</h2>
+                </div>
+                <span class="text-xs bg-blue-500/20 text-blue-300 px-2 py-1 rounded-full font-medium">Макро</span>
+            </div>
+            <div id="inputs-a" class="space-y-1">
+                <!-- JS Injected -->
+            </div>
+        </section>
+
+        <!-- Solution B Card -->
+        <section class="bg-md-surface rounded-[24px] p-5 shadow-elevation-1 relative overflow-hidden">
+            <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-orange-500"></div>
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-rounded text-orange-400">science</span>
+                    <h2 class="text-lg font-medium text-md-text">Раствор Б</h2>
+                </div>
+                <span class="text-xs bg-orange-500/20 text-orange-300 px-2 py-1 rounded-full font-medium">Ca + Микро</span>
+            </div>
+            <div id="inputs-b" class="space-y-1">
+                <!-- JS Injected. Аквамикс М will appear here -->
+            </div>
+        </section>
+
+        </div> <!-- Конец левой колонки -->
+
+        <!-- Правая колонка: Результаты (прокручиваемая на планшете) -->
+        <div class="space-y-4 md:overflow-y-auto md:h-full md:pl-2 pb-6 md:pb-24">
+
+        <!-- Analysis Card -->
+        <section class="bg-md-surface rounded-[24px] p-5 shadow-elevation-1">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="material-symbols-rounded text-md-primary">analytics</span>
+                <h2 class="text-lg font-medium text-md-text">Ионный профиль (ppm)</h2>
+            </div>
+            
+            <div class="space-y-4" id="results-container">
+                <!-- JS Injected -->
+            </div>
+        </section>
+
+        <!-- Diagnostics and AI Warnings -->
+        <section class="bg-md-surface rounded-[24px] p-5 shadow-elevation-1 mb-6">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="material-symbols-rounded text-amber-400">medical_information</span>
+                <h2 class="text-lg font-medium text-md-text">Агро-диагностика</h2>
+            </div>
+            
+            <div class="flex gap-2 mb-4">
+                <div class="flex-1 bg-md-surfaceVariant rounded-xl p-2 text-center">
+                    <div class="text-[10px] sm:text-xs text-md-textVariant mb-1">Расчетный EC</div>
+                    <div class="text-lg sm:text-xl font-bold" id="calc-ec">0.00</div>
+                </div>
+                <div class="flex-1 bg-md-surfaceVariant rounded-xl p-2 text-center">
+                    <div class="text-[10px] sm:text-xs text-md-textVariant mb-1">TDS (ppm)</div>
+                    <div class="text-lg sm:text-xl font-bold" id="calc-tds">0</div>
+                </div>
+                <div class="flex-1 bg-md-surfaceVariant rounded-xl p-2 text-center flex flex-col justify-center">
+                    <div class="text-[10px] sm:text-xs text-md-textVariant mb-1">Статус</div>
+                    <div class="text-sm sm:text-base font-medium text-md-primary leading-tight" id="osmotic-status">Норма</div>
                 </div>
             </div>
 
-            <!-- Solution B Card -->
-            <div class="bg-md-surface rounded-2xl p-4 shadow-elevation-1 relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-1 h-full bg-orange-400"></div>
-                <h2 class="text-base font-medium mb-4 flex items-center gap-2">
-                    <span class="material-symbols-rounded text-orange-400 text-xl">science</span>
-                    Раствор Б (Кальций)
-                </h2>
-                <div id="inputs-b" class="space-y-2">
-                    <!-- Injected via JS -->
-                </div>
+            <div id="warnings-container" class="space-y-2">
+                <!-- JS Injected Warnings -->
             </div>
-
-            <!-- Results Card (Mobile optimized list) -->
-            <div class="bg-md-surface rounded-2xl p-4 shadow-elevation-1">
-                <h2 class="text-base font-medium mb-4 flex items-center gap-2">
-                    <span class="material-symbols-rounded text-md-primary text-xl">bar_chart</span>
-                    Профиль питания (ppm)
-                </h2>
-                <div id="results-list" class="space-y-4">
-                    <!-- Injected via JS -->
-                </div>
-                
-                <div class="mt-4 pt-4 border-t border-md-outlineVariant flex justify-between items-center">
-                    <div>
-                        <p class="text-xs text-md-textVariant">Расчетный EC (мСм/см)</p>
-                        <p id="calc-ec" class="text-xl font-bold">0.00</p>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-xs text-md-textVariant">Осмос</p>
-                        <p id="osmotic-status" class="text-sm font-medium text-md-primary">Норма</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Diagnostics Card -->
-            <div class="bg-md-surface rounded-2xl p-4 shadow-elevation-1 mb-8">
-                <h2 class="text-base font-medium mb-3 flex items-center gap-2">
-                    <span class="material-symbols-rounded text-amber-400 text-xl">warning</span>
-                    AI Диагностика
-                </h2>
-                <div id="warnings-container" class="space-y-2">
-                    <!-- Warnings injected via JS -->
-                </div>
-            </div>
-
-        </main>
-
-        <!-- Floating Action Button for quick reset to defaults -->
-        <button onclick="resetToDefaults()" class="absolute bottom-6 right-6 w-14 h-14 bg-md-primaryContainer text-md-onPrimaryContainer rounded-2xl shadow-elevation-2 flex items-center justify-center active:scale-95 transition-transform" aria-label="Сброс значений">
-            <span class="material-symbols-rounded">restart_alt</span>
-        </button>
-    </div>
+        </section>
+        
+        </div> <!-- Конец правой колонки -->
+    </main>
 
     <script>
-        // Database
+        // Fertilizer composition databases (percentages)
         const FERTILIZERS = {
-            aqApple: { id: 'aqApple', name: 'Акварин Яблоня', desc: '12-12-35', n: 12, p: 5.23, k: 29.05, mg: 0.60, s: 0.70, ca: 0, group: 'A' },
-            aqConifer: { id: 'aqConifer', name: 'Акварин Хвоя', desc: '3-11-35 + MgS', n: 3, p: 4.80, k: 29.05, mg: 2.41, s: 9.00, ca: 0, group: 'A' },
-            kno3: { id: 'kno3', name: 'Калиевая селитра', desc: 'N-K', n: 13.5, p: 0, k: 38.18, mg: 0, s: 0, ca: 0, group: 'A' },
-            kh2po4: { id: 'kh2po4', name: 'Монофосфат К', desc: 'P-K', n: 0, p: 22.69, k: 28.22, mg: 0, s: 0, ca: 0, group: 'A' },
-            mgso4: { id: 'mgso4', name: 'Сульфат магния', desc: 'Mg-S', n: 0, p: 0, k: 0, mg: 9.86, s: 13.01, ca: 0, group: 'A' },
-            cano3: { id: 'cano3', name: 'Кальциевая селитра', desc: 'Ca-N', n: 11.86, p: 0, k: 0, mg: 0, s: 0, ca: 16.97, group: 'B' }
+            aqApple: { id: 'aqApple', name: 'Акварин Яблони', n: 12, p: 5.23, k: 29.05, mg: 0.60, s: 0.70, ca: 0, fe: 0.054, b: 0.02, group: 'A' },
+            aqConifer: { id: 'aqConifer', name: 'Акварин Хвойные', n: 3, p: 4.80, k: 29.05, mg: 2.41, s: 9.00, ca: 0, fe: 0.054, b: 0.02, group: 'A' },
+            kno3: { id: 'kno3', name: 'Калиевая селитра', n: 13.5, p: 0, k: 38.18, mg: 0, s: 0, ca: 0, fe: 0, b: 0, group: 'A' },
+            kh2po4: { id: 'kh2po4', name: 'Монофосфат калия', n: 0, p: 22.69, k: 28.22, mg: 0, s: 0, ca: 0, fe: 0, b: 0, group: 'A' },
+            mgso4: { id: 'mgso4', name: 'Сульфат магния', n: 0, p: 0, k: 0, mg: 9.86, s: 13.01, ca: 0, fe: 0, b: 0, group: 'A' },
+            cano3: { id: 'cano3', name: 'Кальциевая селитра', n: 11.86, p: 0, k: 0, mg: 0, s: 0, ca: 16.97, fe: 0, b: 0, group: 'B' },
+            aquamixM: { id: 'aquamixM', name: 'Аквамикс М', n: 0, p: 0, k: 0, mg: 0, s: 0, ca: 0, fe: 6.0, b: 0.85, group: 'B' }
         };
 
+        // Stages logic and target values (including Fe and B)
         const STAGES = {
             veg: {
-                targets: { n: 160, p: 45, k: 180, ca: 140, mg: 45, s: 50 },
-                defaults: { aqApple: 68.7, aqConifer: 0, kno3: 7.9, kh2po4: 13.9, mgso4: 57.7, cano3: 123.7 }
+                targets: { n: 160, p: 45, k: 180, ca: 140, mg: 45, s: 50, fe: 2.0, b: 0.3 },
+                defaults: { aqApple: 68.7, aqConifer: 0, kno3: 7.9, kh2po4: 13.9, mgso4: 57.7, cano3: 123.7, aquamixM: 5.0 }
             },
             bloom: {
-                targets: { n: 120, p: 50, k: 240, ca: 150, mg: 50, s: 60 },
-                defaults: { aqApple: 0, aqConifer: 80.5, kno3: 15.3, kh2po4: 20.5, mgso4: 29.2, cano3: 132.6 }
+                targets: { n: 120, p: 50, k: 240, ca: 150, mg: 50, s: 60, fe: 2.0, b: 0.3 },
+                defaults: { aqApple: 0, aqConifer: 80.5, kno3: 15.3, kh2po4: 20.5, mgso4: 29.2, cano3: 132.6, aquamixM: 5.0 }
             },
             fruit: {
-                targets: { n: 105, p: 55, k: 310, ca: 170, mg: 55, s: 70 },
-                defaults: { aqApple: 0, aqConifer: 141.7, kno3: 0, kh2po4: 13.9, mgso4: 6.9, cano3: 150.3 }
+                targets: { n: 105, p: 55, k: 310, ca: 170, mg: 55, s: 70, fe: 2.0, b: 0.3 },
+                defaults: { aqApple: 0, aqConifer: 141.7, kno3: 0, kh2po4: 13.9, mgso4: 6.9, cano3: 150.3, aquamixM: 5.0 }
             }
         };
 
+        // UI elements configuration
         const ELEMENTS = [
-            { id: 'n', name: 'N (Азот)', color: '#38BDF8' },
-            { id: 'p', name: 'P (Фосфор)', color: '#FB923C' },
-            { id: 'k', name: 'K (Калий)', color: '#F87171' },
-            { id: 'ca', name: 'Ca (Кальций)', color: '#D6D3D1' },
-            { id: 'mg', name: 'Mg (Магний)', color: '#34D399' },
-            { id: 's', name: 'S (Сера)', color: '#FBBF24' }
+            { id: 'n', name: 'Азот (N)', color: 'bg-blue-400', max: 200 },
+            { id: 'p', name: 'Фосфор (P)', color: 'bg-orange-400', max: 100 },
+            { id: 'k', name: 'Калий (K)', color: 'bg-red-400', max: 400 },
+            { id: 'ca', name: 'Кальций (Ca)', color: 'bg-stone-300', max: 250 },
+            { id: 'mg', name: 'Магний (Mg)', color: 'bg-emerald-400', max: 100 },
+            { id: 's', name: 'Сера (S)', color: 'bg-amber-400', max: 150 },
+            { id: 'fe', name: 'Железо (Fe)', color: 'bg-amber-600', max: 5 },
+            { id: 'b', name: 'Бор (B)', color: 'bg-pink-400', max: 1 }
         ];
 
         let currentStage = 'veg';
@@ -281,17 +294,14 @@
             
             Object.values(FERTILIZERS).forEach(fert => {
                 const html = `
-                    <div class="mb-2">
-                        <div class="flex justify-between items-center pl-1 pr-2">
-                            <div>
-                                <label class="text-sm font-medium text-md-text block">${fert.name}</label>
-                                <span class="text-[10px] text-md-outline">${fert.desc}</span>
-                            </div>
-                            <div class="flex items-center bg-md-bg px-3 py-1.5 rounded-lg border border-md-outlineVariant">
+                    <div class="py-2">
+                        <div class="flex justify-between items-center mb-1">
+                            <label class="text-sm font-medium text-md-text" for="range-${fert.id}">${fert.name}</label>
+                            <div class="flex items-center bg-md-bg rounded-lg px-2 py-1 border border-md-outlineVariant focus-within:border-md-primary transition-colors">
                                 <input type="number" id="num-${fert.id}" value="${currentValues[fert.id]}" min="0" max="300" step="0.1" 
-                                    class="w-12 text-right font-mono text-base outline-none text-md-primary"
+                                    class="w-14 bg-transparent text-right text-md-text font-mono outline-none text-sm"
                                     oninput="syncInput('${fert.id}', this.value)">
-                                <span class="text-xs text-md-textVariant ml-1">г</span>
+                                <span class="text-md-textVariant text-xs ml-1 font-medium">г</span>
                             </div>
                         </div>
                         <input type="range" id="range-${fert.id}" value="${currentValues[fert.id]}" min="0" max="300" step="0.1"
@@ -305,44 +315,31 @@
             updateCalculator();
         }
 
-        // Handle Tabs and Indicator
-        function setStage(stageId, index) {
+        function setStage(stageId) {
             currentStage = stageId;
             currentValues = { ...STAGES[stageId].defaults };
             
-            // Move indicator
-            const indicator = document.getElementById('tab-indicator');
-            indicator.style.transform = `translateX(${index * 100}%)`;
-
-            // Update text colors
-            const btns = document.querySelectorAll('.tab-btn');
-            btns.forEach((btn, i) => {
-                if(i === index) {
-                    btn.classList.remove('text-md-textVariant');
-                    btn.classList.add('text-md-primary');
-                } else {
-                    btn.classList.remove('text-md-primary');
-                    btn.classList.add('text-md-textVariant');
-                }
+            // Tabs Update
+            document.querySelectorAll('.stage-tab').forEach(el => {
+                el.classList.remove('bg-md-primaryContainer', 'text-md-onPrimaryContainer');
+                el.classList.add('text-md-textVariant');
             });
+            const activeTab = document.getElementById(`tab-${stageId}`);
+            if (activeTab) {
+                activeTab.classList.remove('text-md-textVariant');
+                activeTab.classList.add('bg-md-primaryContainer', 'text-md-onPrimaryContainer');
+            }
             
             // Reset Dose
             document.getElementById('dose').value = 10;
-            document.getElementById('dose-val').innerText = '10.0';
             
-            // Sync inputs
+            // Update Inputs
             Object.keys(currentValues).forEach(id => {
                 document.getElementById(`num-${id}`).value = currentValues[id];
                 document.getElementById(`range-${id}`).value = currentValues[id];
             });
             
             updateCalculator();
-        }
-
-        function resetToDefaults() {
-            // Determine index based on currentStage
-            let idx = currentStage === 'veg' ? 0 : currentStage === 'bloom' ? 1 : 2;
-            setStage(currentStage, idx);
         }
 
         function syncInput(id, val) {
@@ -354,31 +351,32 @@
         }
 
         function updateCalculator() {
-            let dose = parseFloat(document.getElementById('dose').value) || 0;
-            document.getElementById('dose-val').innerText = dose.toFixed(1);
+            const dose = parseFloat(document.getElementById('dose').value) || 0;
+            document.getElementById('dose-val').innerText = `${dose.toFixed(1)} мл`;
             
-            const results = { n: 0, p: 0, k: 0, ca: 0, mg: 0, s: 0 };
+            const results = { n: 0, p: 0, k: 0, ca: 0, mg: 0, s: 0, fe: 0, b: 0 };
             let totalWeight = 0;
 
+            // ppm = Weight(g) * Dose(ml) * Percent(%) / 150
             Object.keys(currentValues).forEach(fertId => {
                 const weight = currentValues[fertId];
                 totalWeight += weight;
                 const fertData = FERTILIZERS[fertId];
                 
                 Object.keys(results).forEach(elem => {
-                    if (fertData[elem] > 0) {
+                    if (fertData[elem] !== undefined && fertData[elem] > 0) {
                         results[elem] += (weight * dose * fertData[elem]) / 150;
                     }
                 });
             });
 
-            renderResultsMobile(results);
-            runDiagnosticsMobile(results, totalWeight, dose);
+            renderResults(results);
+            runDiagnostics(results, totalWeight, dose);
         }
 
-        function renderResultsMobile(actuals) {
-            const list = document.getElementById('results-list');
-            list.innerHTML = '';
+        function renderResults(actuals) {
+            const container = document.getElementById('results-container');
+            container.innerHTML = '';
             const targets = STAGES[currentStage].targets;
 
             ELEMENTS.forEach(el => {
@@ -386,102 +384,102 @@
                 const tgt = targets[el.id];
                 const diffRatio = act / tgt;
                 
-                let statusColor = '#34D399'; // Green normal
-                let icon = 'check_circle';
-                if (diffRatio < 0.75) { statusColor = '#FFB4AB'; icon = 'arrow_downward'; }
-                else if (diffRatio > 1.25) { statusColor = '#FFB4AB'; icon = 'arrow_upward'; }
-                else if (diffRatio < 0.9 || diffRatio > 1.1) { statusColor = '#FBBF24'; icon = 'info'; }
+                // Color Logic
+                const barColor = (diffRatio < 0.75 || diffRatio > 1.25) ? 'bg-md-error' : 
+                                 (diffRatio < 0.9 || diffRatio > 1.1) ? 'bg-amber-400' : el.color;
 
-                const barWidth = Math.min(diffRatio * 100, 100);
-                
-                const item = `
-                    <div class="flex flex-col gap-1">
-                        <div class="flex justify-between items-center text-sm">
-                            <div class="flex items-center gap-1.5 font-medium" style="color: ${el.color}">
+                const percent = Math.min((act / el.max) * 100, 100);
+                const targetPercent = (tgt / el.max) * 100;
+
+                const html = `
+                    <div>
+                        <div class="flex justify-between items-end mb-1">
+                            <span class="text-sm font-medium text-md-text flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full ${el.color}"></span>
                                 ${el.name}
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="font-mono text-md-text">${act.toFixed(1)}</span>
-                                <span class="text-xs text-md-outlineVariant">/ ${tgt}</span>
-                                <span class="material-symbols-rounded text-[16px]" style="color: ${statusColor}">${icon}</span>
+                            </span>
+                            <div class="text-right">
+                                <span class="font-mono font-bold text-md-text">${act.toFixed(2)}</span>
+                                <span class="text-xs text-md-textVariant ml-1">/ ${tgt}</span>
                             </div>
                         </div>
-                        <div class="h-1.5 w-full bg-md-bg rounded-full overflow-hidden relative">
-                            <div class="h-full rounded-full progress-bar-fill" style="width: ${barWidth}%; background-color: ${el.color}"></div>
-                            <!-- Target marker -->
-                            <div class="absolute top-0 bottom-0 w-0.5 bg-white/40 left-1/2 -translate-x-1/2"></div>
+                        <div class="relative w-full h-2.5 bg-md-surfaceVariant rounded-full overflow-hidden">
+                            <div class="absolute top-0 left-0 h-full progress-bar ${barColor}" style="width: ${percent}%"></div>
+                            <div class="absolute top-0 h-full w-0.5 bg-white z-10 drop-shadow-md" style="left: ${targetPercent}%"></div>
                         </div>
                     </div>
                 `;
-                list.insertAdjacentHTML('beforeend', item);
+                container.insertAdjacentHTML('beforeend', html);
             });
         }
 
-        function runDiagnosticsMobile(results, totalWeight, dose) {
+        function runDiagnostics(results, totalWeight, dose) {
             const container = document.getElementById('warnings-container');
             container.innerHTML = '';
             let issues = 0;
 
-            const addWarn = (msg, level) => {
+            const addWarn = (icon, title, msg, type) => {
                 issues++;
-                const bg = level === 'critical' ? 'bg-md-errorContainer' : 'bg-[#4A443A]'; // Custom amber container
-                const txt = level === 'critical' ? 'text-md-error' : 'text-amber-300';
-                const icon = level === 'critical' ? 'error' : 'warning';
+                const bg = type === 'error' ? 'bg-md-errorContainer text-md-onErrorContainer' : 
+                           type === 'warn' ? 'bg-amber-900/30 text-amber-200' : 
+                           'bg-md-primaryContainer text-md-onPrimaryContainer';
+                const iconColor = type === 'error' ? 'text-md-error' : 
+                                  type === 'warn' ? 'text-amber-400' : 
+                                  'text-md-primary';
                 
                 container.insertAdjacentHTML('beforeend', `
-                    <div class="p-3 rounded-xl flex gap-3 ${bg} ${txt}">
-                        <span class="material-symbols-rounded text-[20px] mt-0.5 shrink-0">${icon}</span>
-                        <p class="text-xs leading-relaxed">${msg}</p>
+                    <div class="p-3 rounded-xl flex gap-3 items-start ${bg}">
+                        <span class="material-symbols-rounded ${iconColor} text-[20px] mt-0.5">${icon}</span>
+                        <div>
+                            <div class="font-medium text-sm mb-0.5">${title}</div>
+                            <div class="text-xs opacity-90 leading-tight">${msg}</div>
+                        </div>
                     </div>
                 `);
             };
 
-            // Diagnostic Rules
-            if (results.s > 120) {
-                addWarn('Критический избыток серы. Осмотический стресс, опадание цветков.', 'critical');
-            } else if (results.s > 80) {
-                addWarn('Много серы. Сульфаты накапливаются, ухудшая усвоение воды.', 'warn');
-            }
+            // Checking Sulfur
+            if (results.s > 120) addWarn('warning', 'Критический избыток серы', 'Риск осмотического стресса и сброса цветков. Снизьте сульфат магния.', 'error');
+            else if (results.s > 80) addWarn('info', 'Повышенная сера', 'Сульфаты накапливаются в растворе, следите за EC.', 'warn');
 
+            // Checking K/Ca Antagonism
             const kCaRatio = results.ca > 0 ? results.k / results.ca : 999;
             if (currentStage !== 'veg' && kCaRatio > 2.0) {
-                addWarn(`Антагонизм K/Ca (${kCaRatio.toFixed(1)}:1). Блок кальция вызывает опадание завязей.`, 'critical');
+                addWarn('block', 'Антагонизм K/Ca', `Соотношение Калий/Кальций ${kCaRatio.toFixed(1)}:1 (оптимум < 1.8). Избыток калия блокирует усвоение кальция.`, 'error');
             } else if (results.ca < 120) {
-                addWarn('Дефицит кальция (структура ткани, завязи).', 'critical');
+                addWarn('egg_alt', 'Дефицит кальция', 'Кальций необходим для удержания завязей. Увеличьте Раствор Б.', 'error');
             }
 
-            if (currentStage === 'bloom' && results.n > 145) {
-                addWarn('Много азота на цветении — растение уйдет в лист.', 'warn');
-            }
+            // Checking Microelements (New feature)
+            if (results.fe < 1.0) addWarn('iron', 'Дефицит железа', 'Низкий уровень Fe. Увеличьте дозировку Аквамикс М.', 'warn');
+            if (results.b < 0.15) addWarn('grass', 'Дефицит бора', 'Бор критически важен для прорастания пыльцы.', 'warn');
 
-            // EC Limit
+            // Total Salts EC & TDS
             const estimatedEC = (totalWeight * dose) / 1500;
+            const estimatedTDS = estimatedEC * 500;
+            
             document.getElementById('calc-ec').innerText = estimatedEC.toFixed(2);
+            document.getElementById('calc-tds').innerText = Math.round(estimatedTDS);
             
             const osmStatus = document.getElementById('osmotic-status');
             if (estimatedEC > 2.6) {
                 osmStatus.innerText = 'Опасность';
-                osmStatus.className = 'text-sm font-medium text-md-error';
-                addWarn('Слишком высокий EC. Физиологическая засуха.', 'critical');
+                osmStatus.className = 'text-lg font-bold text-md-error';
+                addWarn('water_drop', 'Высокий EC', 'Общая концентрация солей слишком высока. Возможна физиологическая засуха.', 'error');
             } else if (estimatedEC > 2.3) {
                 osmStatus.innerText = 'Высокий';
-                osmStatus.className = 'text-sm font-medium text-amber-400';
+                osmStatus.className = 'text-lg font-medium text-amber-400';
             } else {
-                osmStatus.innerText = 'Норма';
-                osmStatus.className = 'text-sm font-medium text-md-primary';
+                osmStatus.innerText = 'Оптимально';
+                osmStatus.className = 'text-lg font-medium text-md-primary';
             }
 
             if (issues === 0) {
-                container.insertAdjacentHTML('beforeend', `
-                    <div class="p-3 rounded-xl bg-md-primaryContainer text-md-onPrimaryContainer flex gap-3 items-center">
-                        <span class="material-symbols-rounded text-[20px]">eco</span>
-                        <p class="text-xs font-medium">Отличный баланс! Раствор готов.</p>
-                    </div>
-                `);
+                addWarn('check_circle', 'Идеальный баланс', 'Ионный профиль в норме. Раствор сбалансирован.', 'success');
             }
         }
 
-        // Start App
+        // Initialize on load
         window.onload = initUI;
     </script>
 </body>
