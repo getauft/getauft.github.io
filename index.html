@@ -268,6 +268,26 @@
             </div>
         </section>
         
+        <!-- Итоговый рецепт -->
+        <section class="bg-md-surface rounded-[24px] p-5 shadow-elevation-1 mb-6">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-rounded text-md-primary">receipt_long</span>
+                    <h2 class="text-lg font-medium text-md-text">Итоговый рецепт</h2>
+                </div>
+                <button onclick="copyRecipe()" class="flex items-center gap-1 bg-md-primaryContainer text-md-onPrimaryContainer px-3 py-1.5 rounded-xl text-sm font-medium transition-all active:scale-95">
+                    <span id="copy-icon" class="material-symbols-rounded text-[18px]">content_copy</span>
+                    <span id="copy-text">Скопировать</span>
+                </button>
+            </div>
+            
+            <div id="recipe-output" class="text-sm font-mono whitespace-pre-wrap bg-md-bg p-3 rounded-xl border border-md-surfaceVariant text-md-textVariant overflow-x-auto leading-relaxed">
+                <!-- JS Injected Recipe -->
+            </div>
+            <!-- Скрытое поле для работы копирования в iframe/webview -->
+            <textarea id="copy-textarea" class="absolute -left-[9999px] opacity-0" aria-hidden="true"></textarea>
+        </section>
+
         </div> <!-- Конец правой колонки -->
     </main>
 
@@ -280,6 +300,7 @@
             kh2po4: { id: 'kh2po4', name: 'Монофосфат калия', n: 0, p: 22.69, k: 28.22, mg: 0, s: 0, ca: 0, fe: 0, b: 0, group: 'A' },
             mgso4: { id: 'mgso4', name: 'Сульфат магния', n: 0, p: 0, k: 0, mg: 9.86, s: 13.01, ca: 0, fe: 0, b: 0, group: 'A' },
             cano3: { id: 'cano3', name: 'Кальциевая селитра', n: 11.86, p: 0, k: 0, mg: 0, s: 0, ca: 16.97, fe: 0, b: 0, group: 'B' },
+            mgno3: { id: 'mgno3', name: 'Магниевая селитра', n: 11.0, p: 0, k: 0, mg: 9.5, s: 0, ca: 0, fe: 0, b: 0, group: 'B' },
             aquamixM: { id: 'aquamixM', name: 'Аквамикс М', n: 0, p: 0, k: 0, mg: 0, s: 0, ca: 0, fe: 6.0, b: 0.85, group: 'B' }
         };
 
@@ -287,15 +308,15 @@
         const STAGES = {
             veg: {
                 targets: { n: 160, p: 45, k: 180, ca: 140, mg: 45, s: 50, fe: 2.0, b: 0.3 },
-                defaults: { aqApple: 68.7, aqConifer: 0, kno3: 7.9, kh2po4: 13.9, mgso4: 57.7, cano3: 123.7, aquamixM: 5.0 }
+                defaults: { aqApple: 68.7, aqConifer: 0, kno3: 7.9, kh2po4: 13.9, mgso4: 20.0, cano3: 115.0, mgno3: 40.0, aquamixM: 5.0 }
             },
             bloom: {
                 targets: { n: 120, p: 50, k: 240, ca: 150, mg: 50, s: 60, fe: 2.0, b: 0.3 },
-                defaults: { aqApple: 0, aqConifer: 80.5, kno3: 15.3, kh2po4: 20.5, mgso4: 29.2, cano3: 132.6, aquamixM: 5.0 }
+                defaults: { aqApple: 0, aqConifer: 80.5, kno3: 5.0, kh2po4: 20.5, mgso4: 15.0, cano3: 120.0, mgno3: 40.0, aquamixM: 5.0 }
             },
             fruit: {
                 targets: { n: 105, p: 55, k: 310, ca: 170, mg: 55, s: 70, fe: 2.0, b: 0.3 },
-                defaults: { aqApple: 0, aqConifer: 141.7, kno3: 0, kh2po4: 13.9, mgso4: 6.9, cano3: 150.3, aquamixM: 5.0 }
+                defaults: { aqApple: 0, aqConifer: 141.7, kno3: 0, kh2po4: 13.9, mgso4: 15.0, cano3: 140.0, mgno3: 40.0, aquamixM: 5.0 }
             }
         };
 
@@ -413,6 +434,86 @@
 
             renderResults(results);
             runDiagnostics(results, totalWeight, dose, tankVol);
+            renderRecipe(tankVol, dose);
+        }
+
+        // Вспомогательная функция для генерации текста рецепта
+        function getStageName(stageId) {
+            if (stageId === 'veg') return 'Вегетация';
+            if (stageId === 'bloom') return 'Цветение';
+            if (stageId === 'fruit') return 'Плодоношение';
+            return 'Пользовательский';
+        }
+
+        function renderRecipe(tankVol, dose) {
+            const recipeOutput = document.getElementById('recipe-output');
+            
+            let text = `🌿 Рецепт HydroCalc Habanero\n`;
+            text += `Этап: ${getStageName(currentStage)}\n`;
+            text += `Объем маточных баков: ${tankVol.toFixed(1)} л\n`;
+            text += `Дозировка в систему: ${dose.toFixed(1)} мл/л\n\n`;
+
+            text += `💧 РАСТВОР А:\n`;
+            let hasA = false;
+            Object.keys(currentValues).forEach(id => {
+                if (FERTILIZERS[id].group === 'A' && currentValues[id] > 0) {
+                    text += `- ${FERTILIZERS[id].name}: ${currentValues[id].toFixed(1)} г\n`;
+                    hasA = true;
+                }
+            });
+            if (!hasA) text += `- Нет компонентов\n`;
+
+            text += `\n🧪 РАСТВОР Б:\n`;
+            let hasB = false;
+            Object.keys(currentValues).forEach(id => {
+                if (FERTILIZERS[id].group === 'B' && currentValues[id] > 0) {
+                    text += `- ${FERTILIZERS[id].name}: ${currentValues[id].toFixed(1)} г\n`;
+                    hasB = true;
+                }
+            });
+            if (!hasB) text += `- Нет компонентов\n`;
+
+            recipeOutput.innerText = text;
+            
+            // Записываем текст в скрытое поле для функции копирования
+            document.getElementById('copy-textarea').value = text;
+        }
+
+        function copyRecipe() {
+            const copyTextarea = document.getElementById('copy-textarea');
+            copyTextarea.select();
+            copyTextarea.setSelectionRange(0, 99999); // Для мобильных устройств
+            
+            try {
+                // Используем execCommand как надежный фоллбэк, который работает даже внутри iframe и PWA
+                document.execCommand("copy");
+                
+                // Визуальное подтверждение
+                const btn = document.querySelector('button[onclick="copyRecipe()"]');
+                const icon = document.getElementById('copy-icon');
+                const textNode = document.getElementById('copy-text');
+                
+                // Сохраняем изначальные стили
+                const origBg = 'bg-md-primaryContainer';
+                const origText = 'text-md-onPrimaryContainer';
+                
+                // Меняем на зеленый успешный статус
+                btn.classList.remove(origBg, origText);
+                btn.classList.add('bg-green-600', 'text-white');
+                icon.innerText = 'check';
+                textNode.innerText = 'Скопировано';
+                
+                // Возвращаем как было через 2 секунды
+                setTimeout(() => {
+                    btn.classList.remove('bg-green-600', 'text-white');
+                    btn.classList.add(origBg, origText);
+                    icon.innerText = 'content_copy';
+                    textNode.innerText = 'Скопировать';
+                }, 2000);
+                
+            } catch (err) {
+                console.error('Ошибка копирования: ', err);
+            }
         }
 
         function renderResults(actuals) {
