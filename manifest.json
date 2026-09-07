@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "HydroCalc Habanero",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "HCH",
+  "start_url": "/",
+  "theme_color": "#1C1B1F",
+  "id": "HydroCalc Habanero"
+}
