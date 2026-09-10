@@ -11,6 +11,11 @@
   "background_color": "#141218",
   "lang": "ru",
   "dir": "ltr",
+  "categories": [
+    "utilities",
+    "productivity",
+    "agriculture"
+  ],
   "icons": [
     {
       "src": "icon-192.png",
@@ -23,6 +28,20 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Новый расчет",
+      "short_name": "Расчет",
+      "description": "Открыть калькулятор растворов",
+      "url": "/",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     }
   ]
 }
