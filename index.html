@@ -5,24 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>HydroCalc Habanero</title>
     
-    <!-- Инъекция Web App Manifest из ваших настроек -->
-    <script>
-        const manifestData = {
-            "background_color": "#ffffff",
-            "dir": "ltr",
-            "display": "standalone",
-            "name": "HydroCalc Habanero",
-            "orientation": "any",
-            "scope": "/",
-            "short_name": "HCH",
-            "start_url": "/",
-            "theme_color": "#1C1B1F",
-            "id": "HydroCalc Habanero"
-        };
-        const blob = new Blob([JSON.stringify(manifestData)], {type: 'application/manifest+json'});
-        const manifestURL = URL.createObjectURL(blob);
-        document.write(`<link rel="manifest" href="${manifestURL}">`);
-    </script>
+    <link rel="manifest" href="manifest.json">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
