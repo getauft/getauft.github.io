@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "io.github.getauft.twa",
+        "sha256_cert_fingerprints": ["FC:D3:0F:88:B8:B1:EE:CE:B2:24:12:4D:08:59:2D:3C:74:B0:7A:3E:CB:36:07:A8:46:BA:B3:BA:F9:74:0B:97"]
+      }
+    }]
